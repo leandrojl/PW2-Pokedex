@@ -1,0 +1,72 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+header {
+    background-color: #4CAF50;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Efecto de sombra */
+}
+
+.logo img{
+   width: 8em;
+}
+.titulo img{
+    width: 15em;
+}
+
+header .login {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+header .login input[type="text"],
+header .login input[type="password"] {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+}
+
+header .login input[type="submit"] {
+    padding: 10px 15px;
+    background-color: white;
+    color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+header .login input[type="submit"]:hover {
+    background-color: #45a049;
+    color: white;
+}
+
+
+main {
+    padding: 20px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+table, th, td {
+    border: 1px solid black;
+}
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background-color: #4CAF50;
+    color: white;
+}
