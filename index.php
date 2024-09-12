@@ -22,6 +22,11 @@
 </header>
 
 <main>
+    <form class="buscador" action="resultados.php" method="get">
+        <input type="text" name="query" placeholder="Buscar..." required>
+        <input type="submit" value="Buscar">
+    </form>
+
     <h1>Tabla con 6 Columnas</h1>
     <table>
         <tr>
