@@ -31,30 +31,11 @@ if (!isset($_SESSION["logueado"])) {
 
 <main>
     <form class="buscador" action="resultados.php" method="get">
-        <input type="text" name="query" placeholder="Buscar..." required>
-        <input type="submit" value="Buscar">
+        <input type="text" name="query" placeholder="Ingrese el nombre, tipo o numero de pokemon" required>
+        <input type="submit" value="¿Quién es este pokemon?">
     </form>
 
-    <h1>Tabla con 6 Columnas</h1>
-    <table>
-        <tr>
-            <th>Columna 1</th>
-            <th>Columna 2</th>
-            <th>Columna 3</th>
-            <th>Columna 4</th>
-            <th>Columna 5</th>
-            <th>Columna 6</th>
-        </tr>
-        <tr>
-            <td>Dato 1</td>
-            <td>Dato 2</td>
-            <td>Dato 3</td>
-            <td>Dato 4</td>
-            <td>Dato 5</td>
-            <td>Dato 6</td>
-        </tr>
-        <!-- Agrega más filas aquí según sea necesario -->
-    </table>
+
 </main>
 
 </body>
