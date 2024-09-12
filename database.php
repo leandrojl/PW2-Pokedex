@@ -1,12 +1,12 @@
 <?php
 
-$database = new Database();
+/*$database = new Database(); ----------------------PRUEBA DE QUE FUNCIONA
 
 $resultado = $database->query("SELECT * FROM pokemon");
 
 foreach ($resultado as $pokemon) {
     echo "id: " . $pokemon["id"] . ", nombre: " . $pokemon["nombre"] .  "<br>";
-}
+}*/
 
 
 
