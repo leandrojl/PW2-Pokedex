@@ -1,6 +1,3 @@
-<?php
-include 'vistaPokemonSeleccionado.php'
-?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -80,7 +77,7 @@ include './header.php';
         <tbody>
         <tr>
             <td><img src="./imagenes/Bulbasaur.png" alt="Bulbasaur" class="w3-image" style="width:100px;"></td>
-            <td><img src="./imagenes/Hierva.png" alt="Tipo Planta" class="w3-image" style="width:100px;"></td>
+            <td><img src="./imagenes/Hierba.png" alt="Tipo Planta" class="w3-image" style="width:100px;"></td>
             <td>#001</td>
             <td> <a href="vistaPokedexBusqueda.php?page=Bulbasaur">Bulbasaur</a> </td>
             <td> <button class="w3-button w3-blue" onclick="window.location.href='vistaPrincipalDeBusqueda.php?page=Bulbasaur'">Ver a Bulbasaur</button> </td>
@@ -90,24 +87,7 @@ include './header.php';
             </td>
 
         </tr>
-        <tr>
-            <td><img src="./imagenes/Charmander.png" alt="Charmander" class="w3-image" style="width:100px;"></td>
-            <td><img src="./imagenes/Fuego.png" alt="Tipo Fuego" class="w3-image" style="width:100px;"></td>
-            <td>#004</td>
-            <td>Charmander</td>
-        </tr>
-        <tr>
-            <td><img src="./imagenes/Squirtle.png" alt="Squirtle" class="w3-image" style="width:100px;"></td>
-            <td><img src="./imagenes/Agua.png" alt="Tipo Agua" class="w3-image" style="width:100px;"></td>
-            <td>#007</td>
-            <td>Squirtle</td>
-        </tr>
-        <tr>
-            <td><img src="./imagenes/Pikachu.png" alt="Pikachu" class="w3-image" style="width:100px;"></td>
-            <td><img src="./imagenes/Electrico.png" alt="Tipo Eléctrico" class="w3-image" style="width:100px;"></td>
-            <td>#025</td>
-            <td>Pikachu</td>
-        </tr>
+
         </tbody>
     </table>
 </div>
