@@ -3,16 +3,19 @@ include 'database.php';
 if (isset($_GET['page'])) {
     $page = $_GET['page'];
 
-$database = new Database();
+$database = new Database(); //en esta instancia creo la conexion a la base de datos
 
-$query = "SELECT pokemon.imagen AS pokemon_img, 
-                       pokemon.nro_id_unico, 
-                       pokemon.nombre, 
+$query = "SELECT       pokemon.nro_id_unico, 
+                       pokemon.nombre,
+                       pokemon.descripcion AS pokemon_descripcion,
                        tipo.imagen AS tipo_img, 
-                       tipo.descripcion
-                FROM pokemon
-                JOIN tipo ON pokemon.tipo_id = tipo.id
-                WHERE pokemon.nombre LIKE '%$page%'
+                       tipo.descripcion AS tipo_descripcion
+
+          FROM         pokemon
+              
+          JOIN         tipo ON pokemon.tipo_id = tipo.id
+          
+          WHERE        pokemon.nombre LIKE '%$page%'
 ";
 
 $resultado = $database->query($query);
@@ -20,24 +23,58 @@ $resultado = $database->query($query);
 ?>
 
 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pokedex</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+<?php
+include './header.php';
+?>
 
-<?php foreach ($resultado as $pokemon): ?>
-    <div class="w3-row">
-        <div class="w3-col l6">
-            <img src="./imagenes/<?php echo $pokemon['nombre'];?>.png" alt="<?php echo $pokemon['nombre']; ?>" class="w3-image" style="width:100px;">
+<?php foreach ($resultado as $pokemon){
 
-        </div>
-        <div class="w3-col l6">
-            <img src="./imagenes/<?php echo $pokemon['descripcion']; ?>.png" alt="Tipo <?php echo $pokemon['descripcion']; ?>" class="w3-image" style="width:100px;">
-            <a href="vistaPokedexBusqueda.php?page=<?php echo $pokemon['nombre']; ?>"><?php echo $pokemon['nombre']; ?></a>
-            <p>Numero de pokemon: <?php echo $pokemon['nro_id_unico'] ?></p>
-        </div>
+    $nombre_pokemon = $pokemon['nombre']; //guardo el nombre del pokemon
+
+    $tipo_pokemon = $pokemon['tipo_descripcion']; //guardo el tipo de pokemon
+
+    $nro_id_unico =$pokemon['nro_id_unico']; //guardo su numero identificador unico
+
+    $pokemon_descripcion = $pokemon['pokemon_descripcion']; //guardo la descripcion del pokemon
+
+    echo '<div class="w3-row-padding w3-margin">
+                    <div class="w3-col l6 m6 s12">
+                        <img src="./imagenes/'.$nombre_pokemon.'.png" alt="'.$nombre_pokemon.'" class="w3-image w3-round-large w3-card-4" style="width: 100%; max-width: 400px;">
+                    </div>
+                    <div class="w3-col l6 m6 s12">
+                        <div class="w3-container">
+                            <img src="./imagenes/'.$tipo_pokemon.'.png" alt="Tipo'.$tipo_pokemon.'" class="w3-image w3-right w3-margin-bottom" style="width: 80px;">
+                            <h2 class="w3-text-blue w3-large w3-margin-top">'.$nombre_pokemon.'</h2>
+                            <p>Número de Pokémon: '.$nro_id_unico.'</p>
+                            <p>Descripción del Pokémon: '.$pokemon_descripcion.'</p>
+                        </div>
+                    </div>
+           </div>';
+
+
+}
+?>
+</body>
+</html>
 
 
 
-    </div>
-<?php endforeach; ?>
 
+
+
+
+
+
+
+</body>
+</html>
 
 
 

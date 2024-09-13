@@ -69,16 +69,19 @@ include './header.php';
 
     $database = new Database();
 
-    $query = "SELECT pokemon.imagen AS pokemon_img, 
-                       pokemon.nro_id_unico, 
-                       pokemon.nombre, 
+    $query = "SELECT       pokemon.nro_id_unico, 
+                       pokemon.nombre,
+                       pokemon.descripcion AS pokemon_descripcion,
                        tipo.imagen AS tipo_img, 
-                       tipo.descripcion
-                FROM pokemon
-                JOIN tipo ON pokemon.tipo_id = tipo.id
-";
+                       tipo.descripcion AS tipo_descripcion
+
+              FROM         pokemon
+                  
+              JOIN         tipo ON pokemon.tipo_id = tipo.id;
+    ";
     // Ejecutar la consulta
     $resultado = $database->query($query);
+
     ?>
 
     <table class="w3-table w3-bordered w3-striped w3-hoverable">
@@ -92,24 +95,37 @@ include './header.php';
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($resultado as $pokemon): ?>
-            <tr>
-                <!-- Mostrar la imagen del Pokémon -->
-                <td><img src="./imagenes/<?php echo $pokemon['nombre'];?>.png" alt="<?php echo $pokemon['nombre']; ?>" class="w3-image" style="width:100px;"></td>
+        <?php foreach ($resultado as $pokemon){
+                $nombre_pokemon = $pokemon['nombre']; //guardo el nombre del pokemon
 
-                <!-- Mostrar la imagen del tipo de Pokémon -->
-                <td><img src="./imagenes/<?php echo $pokemon['descripcion']; ?>.png" alt="Tipo <?php echo $pokemon['descripcion']; ?>" class="w3-image" style="width:100px;"></td>
+                $tipo_pokemon = $pokemon['tipo_descripcion']; //guardo el tipo de pokemon
 
-                <!-- Mostrar el número del Pokémon -->
-                <td><?php echo $pokemon['nro_id_unico'] ?></td>
+                $nro_id_unico =$pokemon['nro_id_unico']; //guardo su numero identificador unico
 
-                <!-- Mostrar el nombre del Pokémon como un enlace -->
-                <td><a href="vistaPokedexBusqueda.php?page=<?php echo $pokemon['nombre']; ?>"><?php echo $pokemon['nombre']; ?></a></td>
+                $pokemon_descripcion = $pokemon['pokemon_descripcion']; //guardo la descripcion del pokemon
 
-                <!-- Botón para ver más detalles del Pokémon -->
-                <td><button class="w3-button w3-blue" onclick="window.location.href='vistaPokemonSeleccionado.php?page=<?php echo $pokemon['nombre']; ?>'">Ver a <?php echo $pokemon['nombre']; ?></button></td>
-            </tr>
-        <?php endforeach; ?>
+
+                echo'<tr>
+                        <!-- Mostrar la imagen del Pokémon -->
+                        <td><img src="./imagenes/'.$nombre_pokemon.'.png" alt="'.$nombre_pokemon.'" class="w3-image" style="width:100px;"></td>
+        
+                        <!-- Mostrar la imagen del tipo de Pokémon -->
+                        <td><img src="./imagenes/'.$tipo_pokemon.'.png" alt="Tipo '.$tipo_pokemon.'" class="w3-image" style="width:100px;"></td>
+        
+                        <!-- Mostrar el número del Pokémon -->
+                        <td>'.$nro_id_unico.'</td>
+        
+                        <!-- Mostrar el nombre del Pokémon como un enlace -->
+                        <td><a href="vistaPokedexBusqueda.php?page='.$nombre_pokemon.'">'.$nombre_pokemon.'</a></td>
+        
+                        <!-- Botón para ver más detalles del Pokémon -->
+                        <td><button class="w3-button w3-blue" onclick="window.location.href=\'vistaPokemonSeleccionado.php?page='.$nombre_pokemon.'\'">Ver a '.$nombre_pokemon.'</button></td>
+
+                        </tr>';
+        }
+            ?>
+
+
         </tbody>
     </table>
 </div>
