@@ -123,10 +123,12 @@ header .login input[type="button"]:hover {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    height: 100%; /* Asegura que ocupe toda la altura de la ventana */
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+    overflow-y: auto; /* Permite el scroll vertical si el contenido es demasiado grande */
+    padding: 20px; /* Añade espacio para que el contenido no toque el borde */
 }
-
 /* Estilo del contenido del popup */
 .popup-content {
     background-color: white;
@@ -149,6 +151,12 @@ header .login input[type="button"]:hover {
     padding: 10px 15px;
     background-color: white;
     border: none;
+}
+
+#previewImg{
+   display:none;
+    width: 200px;
+    height: auto;
 }
 
 .close:hover,
@@ -178,4 +186,44 @@ header .login input[type="button"]:hover {
     cursor: pointer;
     background-color: #4b58da;
     color: white;
+}
+
+#nuevoForm {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+#nuevoForm label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+
+#nuevoForm input[type="number"]{
+    padding: 5px;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+
+}
+
+#nuevoForm input[type="text"]{
+    padding: 5px;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+}
+
+select{
+    padding: 5px;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+
+}
+
+textarea{
+    padding: 5px;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    width: 95%;
 }
