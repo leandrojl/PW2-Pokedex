@@ -41,7 +41,7 @@ if (!isset($_SESSION["logueado"])) {
     <div id="popupForm" class="popup">
         <div class="popup-content">
             <span class="close">&times;</span>
-            <h2>Formulario</h2>
+            <h2>Ingrese nuevo pokémon</h2>
             <form id="nuevoForm">
                 <label for="niu">Número identificador único:</label>
                 <input type="number" id="niu" name="niu">
@@ -64,7 +64,7 @@ if (!isset($_SESSION["logueado"])) {
                 <label for="descripcion">Descripción:</label>
                 <textarea id="descripcion"></textarea>
 
-                <button type="submit" class="cargar">Cargar nuevo pokemon</button>
+                <button type="submit" class="cargar">Cargar nuevo pokémon</button>
             </form>
         </div>
     </div>

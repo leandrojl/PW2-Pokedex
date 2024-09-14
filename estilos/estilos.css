@@ -221,7 +221,7 @@ textarea{
     padding: 5px;
     border: 2px solid #4CAF50;
     border-radius: 5px;
-    width: 95%;
+    height: 150px;
 }
 
 /*boton para cargar el nuevo pokemon*/
