@@ -27,7 +27,15 @@ if(!isset($_SESSION['logueado'])) {
                 <button class="w3-button w3-blue" type = "submit" > Ingresar</button >
             </div >
         </form >
-        ';}else echo '<h2 class="w3-text-black" ><b >Bienvenido Administrador</b ></h2 >';
+        ';}else echo '<h2 class="w3-text-black" ><b >Bienvenido Administrador</b ></h2 >
+ <form class="w3-col l3" action = "logout.php" method = "POST" >
+
+            <div class="" >
+                <input class="w3-input w3-border" type = "submit" value="Cerrar sesion" >
+            </div >
+
+        </form >
+';
     echo '
     </div >
 
