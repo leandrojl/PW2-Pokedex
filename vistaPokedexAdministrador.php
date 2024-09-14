@@ -1,4 +1,26 @@
+<?php
+include 'database.php';
 
+
+    $database = new Database(); //en esta instancia creo la conexion a la base de datos
+/*
+    $query = "SELECT       pokemon.nro_id_unico, 
+                       pokemon.nombre,
+                       pokemon.descripcion AS pokemon_descripcion,
+                       tipo.imagen AS tipo_img, 
+                       tipo.descripcion AS tipo_descripcion
+
+          FROM         pokemon
+              
+          JOIN         tipo ON pokemon.tipo_id = tipo.id
+          
+        
+";
+
+    $resultado = $database->query($query);*/
+$resultado=$database->devolverListadoCompleto();
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -36,7 +58,9 @@
 <?php
 include './header.php';
 ?>
-
+<?php
+include './buscador.php';
+?>
 <div class="w3-container w3-gray w3-padding-16">
     <form class="w3-row" action="login.php" method="POST">
 
@@ -73,36 +97,37 @@ include './header.php';
             <th>Acciones</th>
         </tr>
         </thead>
-
         <tbody>
+<?php
+foreach ($resultado as $pokemon){
+    $nombre_pokemon = $pokemon['nombre']; //guardo el nombre del pokemon
+    $tipo_pokemon = $pokemon['tipo_descripcion']; //guardo el tipo de pokemon
+    $nro_id_unico =$pokemon['nro_id_unico']; //guardo su numero identificador unico
+    $pokemon_descripcion = $pokemon['pokemon_descripcion']; //guardo la descripcion del pokemon
+    echo '
+
+    
         <tr>
-            <td><img src="./imagenes/Bulbasaur.png" alt="Bulbasaur" class="w3-image" style="width:100px;"></td>
-            <td><img src="./imagenes/Hierba.png" alt="Tipo Planta" class="w3-image" style="width:100px;"></td>
+            <td><img src="./imagenes/'.$nombre_pokemon.'.png" alt="Bulbasaur" class="w3-image" style="width:100px;"></td>
+            <td><img src="./imagenes/'.$tipo_pokemon.'.png" alt="Tipo Planta" class="w3-image" style="width:100px;"></td>
             <td>#001</td>
-            <td> <a href="vistaPokedexBusqueda.php?page=Bulbasaur">Bulbasaur</a> </td>
-            <td> <button class="w3-button w3-blue" onclick="window.location.href='vistaPrincipalDeBusqueda.php?page=Bulbasaur'">Ver a Bulbasaur</button> </td>
+            <td> <a href="vistaPokedexBusqueda.php?page=Bulbasaur">'.$nombre_pokemon.'</a> </td>
+           <td> <button class="w3-button w3-blue" onclick="window.location.href=\'vistaPokemonSeleccionado.php?page='.$nombre_pokemon.'\'">'.$nombre_pokemon.'</button> </td>
             <td>
                 <button class="w3-button w3-green"">Modificar</button>
                 <button class="w3-button w3-red" ">Baja</button>
             </td>
 
         </tr>
-
+'  ;}
+?>
         </tbody>
     </table>
 </div>
 
-</body>
-</html>
-
-
-
-
-
-
-
 
 
 
 </body>
 </html>
+

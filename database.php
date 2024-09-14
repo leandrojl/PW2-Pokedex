@@ -23,4 +23,22 @@ class Database{
     public function __destruct(){
         $this->conexion->close();
     }
+    public function devolverListadoCompleto(){
+        $query = "SELECT       pokemon.nro_id_unico, 
+                       pokemon.nombre,
+                       pokemon.descripcion AS pokemon_descripcion,
+                       tipo.imagen AS tipo_img, 
+                       tipo.descripcion AS tipo_descripcion
+
+              FROM         pokemon
+                  
+              JOIN         tipo ON pokemon.tipo_id = tipo.id;
+    ";
+        return $this->query($query);
+    }
+
+    public function prepare($query){
+        return $this->conexion->prepare($query);
+
+    }
 }
