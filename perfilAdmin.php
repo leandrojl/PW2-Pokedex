@@ -1,12 +1,21 @@
 <?php
 session_start();
-
+/*
 // Verificar si el usuario está logueado
 if (!isset($_SESSION["logueado"])) {
     // Si no está logueado, redirigir al inicio
     header("Location: index.php");
     exit();
 }
+*/
+
+include_once 'database.php';
+
+$db = new Database();
+
+$sqlQuery = "SELECT id, imagen, nombre, descripcion FROM pokemon";
+$resultado = $db->query($sqlQuery);
+
 ?>
 
 <!DOCTYPE html>
@@ -23,8 +32,8 @@ if (!isset($_SESSION["logueado"])) {
 <body>
 
 <header>
-    <div class="logo"><img src="img/pokedex-removebg-preview.png"></div>
-    <div class="titulo"><img src="img/pokedex-titulo.png"></div>
+    <div class="logo"><img src="img/pokedex-removebg-preview.png" alt="Logo"></div>
+    <div class="titulo"><img src="img/pokedex-titulo.png" alt=""></div>
 
     <div class="login">
         <img src="img/foto_perfil.webp" alt="Usuario" class="user-image">
@@ -34,76 +43,54 @@ if (!isset($_SESSION["logueado"])) {
 </header>
 
 <main>
-    <form class="buscador" action="resultados.php" method="get">
+    <form class="buscador" action="" method="get">
         <input type="text" name="query" placeholder="Ingrese el nombre, tipo o número de pokemon" required>
         <input type="submit" value="¿Quién es este pokemon?">
     </form>
 
     <div class="w3-container">
         <h2 class="w3-center">Lista de Pokémon</h2>
-
         <table class="w3-table w3-bordered w3-striped w3-hoverable">
-
             <thead>
             <tr class="w3-light-grey">
                 <th>Imagen</th>
                 <th>Tipo</th>
                 <th>Número</th>
                 <th>Nombre</th>
-                <th>Ver pokemon</th>
+                <th>Ver Pokémon</th>
                 <th>Acciones</th>
             </tr>
             </thead>
-
             <tbody>
-            <tr>
-                <td><img src="img/Bulbasaur.png" alt="Bulbasaur" class="w3-image" style="width:100px;"></td>
-                <td><img src="img/Hierba.png" alt="Tipo Planta" class="w3-image" style="width:100px;"></td>
-                <td>#001</td>
-                <td> <a href="vistaPokedexBusqueda.php?page=Bulbasaur">Bulbasaur</a> </td>
-                <td> <button class="w3-button w3-blue" onclick="window.location.href='vistaPrincipalDeBusqueda.php?page=Bulbasaur'">Ver a Bulbasaur</button> </td>
-                <td>
-                    <button class="w3-button w3-green"">Modificar</button>
-                    <button class="w3-button w3-red" ">Baja</button>
-                </td>
-
-            </tr>
-            <tr>
-                <td><img src="img/Charmander.png" alt="Charmander" class="w3-image" style="width:100px;"></td>
-                <td><img src="img/Fuego.png" alt="Tipo Fuego" class="w3-image" style="width:100px;"></td>
-                <td>#004</td>
-                <td>Charmander</td>
-                <td> <button class="w3-button w3-blue" onclick="window.location.href='vistaPrincipalDeBusqueda.php?page=Bulbasaur'">Ver a Bulbasaur</button> </td>
-                <td>
-                    <button class="w3-button w3-green"">Modificar</button>
-                    <button class="w3-button w3-red" ">Baja</button>
-                </td>
-            </tr>
-            <tr>
-                <td><img src="img/Squirtle.png" alt="Squirtle" class="w3-image" style="width:100px;"></td>
-                <td><img src="img/Agua.png" alt="Tipo Agua" class="w3-image" style="width:100px;"></td>
-                <td>#007</td>
-                <td>Squirtle</td>
-                <td> <button class="w3-button w3-blue" onclick="window.location.href='vistaPrincipalDeBusqueda.php?page=Bulbasaur'">Ver a Bulbasaur</button> </td>
-                <td>
-                    <button class="w3-button w3-green"">Modificar</button>
-                    <button class="w3-button w3-red" ">Baja</button>
-                </td>
-            </tr>
-            <tr>
-                <td><img src="img/Pikachu.png" alt="Pikachu" class="w3-image" style="width:100px;"></td>
-                <td><img src="img/Electrico.png" alt="Tipo Eléctrico" class="w3-image" style="width:100px;"></td>
-                <td>#025</td>
-                <td>Pikachu</td>
-                <td> <button class="w3-button w3-blue" onclick="window.location.href='vistaPrincipalDeBusqueda.php?page=Bulbasaur'">Ver a Bulbasaur</button> </td>
-                <td>
-                    <button class="w3-button w3-green"">Modificar</button>
-                    <button class="w3-button w3-red" ">Baja</button>
-                </td>
-            </tr>
+            <?php foreach ($resultado as $pokemon): ?>
+                <tr>
+                    <td><img src="img/<?php echo htmlspecialchars($pokemon['imagen']); ?>" alt="<?php echo htmlspecialchars($pokemon['nombre']); ?>" class="w3-image" style="width:100px;"></td>
+                    <td><img src="img/<?php echo htmlspecialchars($pokemon['tipo']); ?>.png" alt="Tipo <?php echo htmlspecialchars($pokemon['tipo']); ?>" class="w3-image" style="width:100px;"></td>
+                    <td>#<?php echo htmlspecialchars($pokemon['numero']); ?></td>
+                    <td><?php echo htmlspecialchars($pokemon['nombre']); ?></td>
+                    <td><button class="w3-button w3-blue" onclick="window.location.href='vistaPrincipalDeBusqueda.php?page=<?php echo urlencode($pokemon['nombre']); ?>&id=<?php echo $pokemon['id']; ?>'">Ver a <?php echo htmlspecialchars($pokemon['nombre']); ?></button></td>
+                    <td>
+                        <form action="ABM.php" method="POST">
+                            <input type="hidden" name="id" value="<?php echo $pokemon['id']; ?>">
+                            <input type="hidden" name="accion" value="modificar">
+                            <button type="submit" class="w3-button w3-green">Modificar</button>
+                        </form>
+                        <form action="ABM.php" method="POST">
+                            <input type="hidden" name="id" value="<?php echo $pokemon['id']; ?>">
+                            <input type="hidden" name="accion" value="baja">
+                            <button type="submit" class="w3-button w3-red">Baja</button>
+                        </form>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
             </tbody>
         </table>
+
+        <a href="agregar_pokemon.php" class="w3-button w3-teal">Agregar Pokémon</a>
     </div>
+
+
+
 
 </main>
 
