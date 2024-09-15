@@ -1,6 +1,6 @@
 <?php
 if(!isset($_POST["login"])){
-    header("location:vistaNoAdmin.php");
+    header("Location: " .$_SERVER['HTTP_REFERER']);
     exit();
 }else{
     if($_POST["usuario"] == "eric" && $_POST["password"] == "123"){
@@ -10,7 +10,7 @@ if(!isset($_POST["login"])){
         header("location:vistaAdmin.php");
         exit();
     } else{
-        header("location:vistaNoAdmin.php");
+        header("Location: " .$_SERVER['HTTP_REFERER']);
         exit();
     }
 }
