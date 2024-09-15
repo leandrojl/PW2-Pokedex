@@ -1,5 +1,10 @@
 <?php
     require_once $_SERVER["DOCUMENT_ROOT"] . "/pw2-pokedex/database.php";
+    session_start();
+    if(!isset($_SESSION["logueado"])){
+        header("Location: vistaNoAdmin.php");
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -41,7 +46,7 @@
     </div>
     <h2>Pokedex</h2>
     <div class="d-flex align-items-center">
-        <?php session_start();
+        <?php
         $nombreUsuario = $_SESSION['usuario'];
         echo '<p class="me-3 mb-0">Usuario: ' . htmlspecialchars($nombreUsuario) . '</p>';
         ?>
