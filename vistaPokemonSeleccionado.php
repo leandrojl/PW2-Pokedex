@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'database.php';
 if (isset($_GET['page'])) {
     $page = $_GET['page'];
@@ -31,7 +32,25 @@ $resultado = $database->query($query);
 </head>
 <body>
 <?php
-include './header.php';
+
+// Verificar si el usuario está logueado
+if (!isset($_SESSION["logueado"])) {
+    // Si no está logueado le muestro el header de login
+
+    include './header.php';
+}else{
+    //si esta logeado, le muestro el header para salir
+
+    echo '<header>
+            <div class="logo"><img src="imagenes/pokedex-removebg-preview.png"></div>
+            <div class="titulo"><img src="imagenes/pokedex-titulo.png"></div>
+            <div class="login">
+                <p>Usuario Administrador</p>
+                <input type="button" value="Salir" onclick="window.location.href=\'logout.php\'">
+            </div>
+        </header>';
+}
+
 ?>
 
 <?php foreach ($resultado as $pokemon){

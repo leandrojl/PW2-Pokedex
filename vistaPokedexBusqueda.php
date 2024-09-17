@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'database.php';
 
 ?>
@@ -11,34 +12,30 @@ include 'database.php';
     <title>Pokedex</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style>
-        .w3-bar {
-            display: flex;
-            justify-content: space-between;
-            margin: 0 auto; /* Centra el menú horizontalmente */
-        }
-        .iframe-container {
-            display: flex;
-            justify-content: center;
-
-            align-items: center;
-            width: 80%;
-            max-width: 1200px;
-            margin: 0 auto;
-            height: 70vh;
-            padding: 0;
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
 
     </style>
 </head>
 <body>
 <?php
-include './header.php';
+
+// Verificar si el usuario está logueado
+if (!isset($_SESSION["logueado"])) {
+    // Si no está logueado le muestro el header de login
+
+    include './header.php';
+}else{
+    //si esta logeado, le muestro el header para salir
+
+    echo '<header>
+            <div class="logo"><img src="imagenes/pokedex-removebg-preview.png"></div>
+            <div class="titulo"><img src="imagenes/pokedex-titulo.png"></div>
+            <div class="login">
+                <p>Usuario Administrador</p>
+                <input type="button" value="Salir" onclick="window.location.href=\'logout.php\'">
+            </div>
+        </header>';
+}
+
 ?>
 
     <div class="w3-container w3-gray w3-padding-16">
@@ -116,7 +113,7 @@ include './header.php';
                         <td>'.$nro_id_unico.'</td>
         
                         <!-- Mostrar el nombre del Pokémon como un enlace -->
-                        <td><a href="vistaPokedexBusqueda.php?page='.$nombre_pokemon.'">'.$nombre_pokemon.'</a></td>
+                        <td><a href=\'vistaPokemonSeleccionado.php?page='.$nombre_pokemon.'\' target="_blank">'.$nombre_pokemon.'</a></td>
         
                         <!-- Botón para ver más detalles del Pokémon -->
                         <td><button class="w3-button w3-blue" onclick="window.location.href=\'vistaPokemonSeleccionado.php?page='.$nombre_pokemon.'\'">Ver a '.$nombre_pokemon.'</button></td>

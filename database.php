@@ -11,7 +11,7 @@ foreach ($resultado as $pokemon) {
 
 
 class Database{
-    private $conexion;
+    public $conexion;
     public function __construct(){
             $this->conexion = new mysqli("localhost","root","","pokedex");
         }
