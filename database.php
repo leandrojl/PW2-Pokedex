@@ -15,9 +15,8 @@ class Database{
             $this->conexion = new mysqli("localhost","root","","pokedex");
         }
 
-
     public function query($query){
-        return $this->conexion->query($query)->fetch_all(MYSQLI_ASSOC);
+        return $this->conexion->query($query)->fetch_all(MYSQLI_ASSOC); //me devuelve la consulta en un array asociativo
     }
 
     public function __destruct(){
