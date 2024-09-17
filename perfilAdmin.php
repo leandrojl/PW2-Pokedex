@@ -9,13 +9,31 @@ if (!isset($_SESSION["logueado"])) {
 }
 */
 
+
 include_once 'database.php';
+include_once 'PokemonManager.php';
+
+// Instancio la BDD y la clase que maneja el ABM de los pokemons
 
 $db = new Database();
+$pokemonManager = new PokemonManager($db);
 
-$sqlQuery = "SELECT id, imagen, nombre, descripcion FROM pokemon";
-$resultado = $db->query($sqlQuery);
+// Creo la query pra obtener todos los pokemons y todos sus atributos
+$sqlQuery = "
+    SELECT p.id, p.imagen, p.nombre, t.descripcion AS tipo
+    FROM pokemon p
+    JOIN tipo t ON p.tipo_id = t.id
+";
+// Acceso a la BDD, ejecuto la consulta y la almaceno en una variable
 
+$resultado = $db->conexion->query($sqlQuery);
+
+function obtenerRutaImagen($ruta) {
+    // Si viene con/img lo elimina
+    $rutaLimpia = str_replace('img/', '', $ruta);
+
+    return 'img/' . $rutaLimpia;
+}
 ?>
 
 <!DOCTYPE html>
@@ -27,19 +45,16 @@ $resultado = $db->query($sqlQuery);
     <link rel="stylesheet" href="styles/style.css">
     <link rel="shortcut icon" href="img/Pokebola.png">
     <title>Pokedex</title>
-
 </head>
 <body>
-
 <header>
     <div class="logo"><img src="img/pokedex-removebg-preview.png" alt="Logo"></div>
     <div class="titulo"><img src="img/pokedex-titulo.png" alt=""></div>
 
     <div class="login">
-        <img src="img/foto_perfil.webp" alt="Usuario" class="user-image">
+        <img src="img/ash.jfif" alt="Usuario" class="user-image">
         <p>Usuario: Administrador</p>
     </div>
-
 </header>
 
 <main>
@@ -64,15 +79,22 @@ $resultado = $db->query($sqlQuery);
             <tbody>
             <?php foreach ($resultado as $pokemon): ?>
                 <tr>
-                    <td><img src="img/<?php echo htmlspecialchars($pokemon['imagen']); ?>" alt="<?php echo htmlspecialchars($pokemon['nombre']); ?>" class="w3-image" style="width:100px;"></td>
-                    <td><img src="img/<?php echo htmlspecialchars($pokemon['tipo']); ?>.png" alt="Tipo <?php echo htmlspecialchars($pokemon['tipo']); ?>" class="w3-image" style="width:100px;"></td>
-                    <td>#<?php echo htmlspecialchars($pokemon['numero']); ?></td>
-                    <td><?php echo htmlspecialchars($pokemon['nombre']); ?></td>
-                    <td><button class="w3-button w3-blue" onclick="window.location.href='vistaPrincipalDeBusqueda.php?page=<?php echo urlencode($pokemon['nombre']); ?>&id=<?php echo $pokemon['id']; ?>'">Ver a <?php echo htmlspecialchars($pokemon['nombre']); ?></button></td>
                     <td>
-                        <form action="ABM.php" method="POST">
+                         <img src="<?php echo obtenerRutaImagen(htmlspecialchars($pokemon['imagen'])); ?>"
+                               alt="<?php echo htmlspecialchars($pokemon['nombre']); ?>"
+                               class="w3-image"
+                               style="width:100px;">
+                    </td>
+
+
+
+                    <td><img src="img/<?php echo $pokemon['tipo']; ?>.png" alt="Tipo <?php echo $pokemon['tipo']; ?>" class="w3-image" style="width:100px;"></td>
+                    <td>#<?php echo $pokemon['id']; ?></td>
+                    <td><?php echo $pokemon['nombre']; ?></td>
+                    <td><button class="w3-button w3-blue" onclick="window.location.href='vistaPrincipalDeBusqueda.php?page=<?php echo urlencode($pokemon['nombre']); ?>&id=<?php echo $pokemon['id']; ?>'">Ver a <?php echo $pokemon['nombre']; ?></button></td>
+                    <td>
+                        <form action="modificar_pokemon.php" method="GET">
                             <input type="hidden" name="id" value="<?php echo $pokemon['id']; ?>">
-                            <input type="hidden" name="accion" value="modificar">
                             <button type="submit" class="w3-button w3-green">Modificar</button>
                         </form>
                         <form action="ABM.php" method="POST">
@@ -81,6 +103,7 @@ $resultado = $db->query($sqlQuery);
                             <button type="submit" class="w3-button w3-red">Baja</button>
                         </form>
                     </td>
+
                 </tr>
             <?php endforeach; ?>
             </tbody>
@@ -88,11 +111,6 @@ $resultado = $db->query($sqlQuery);
 
         <a href="agregar_pokemon.php" class="w3-button w3-teal">Agregar Pokémon</a>
     </div>
-
-
-
-
 </main>
-
 </body>
 </html>
