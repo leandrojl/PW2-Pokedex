@@ -1,12 +1,22 @@
 <?php
 session_start();
-
+/*
 // Verificar si el usuario está logueado
 if (!isset($_SESSION["logueado"])) {
     // Si no está logueado, redirigir al inicio
     header("Location: index.php");
     exit();
 }
+*/
+include_once 'database.php';
+include_once 'PokemonManager.php';
+
+
+$db = new Database();
+$pokemonManager = new PokemonManager($db);
+
+
+$tipos = $pokemonManager->obtenerTipos();
 
 ?>
 
@@ -30,31 +40,31 @@ if (!isset($_SESSION["logueado"])) {
         <img src="img/foto_perfil.webp" alt="Usuario" class="user-image">
         <p>Usuario: Administrador</p>
     </div>
-
 </header>
 
 <main>
     <div class="w3-container">
         <h2 class="w3-center">Agregar Nuevo Pokémon</h2>
-        <form action="ABM.php" method="POST">
+        <form action="ABM.php" method="POST"  enctype="multipart/form-data" class="w3-form">
             <div class="w3-row-padding">
                 <div class="w3-half">
                     <label for="nombre">Nombre:</label>
                     <input type="text" id="nombre" name="nombre" required class="w3-input w3-border">
                 </div>
                 <div class="w3-half">
-                    <label for="tipo">Tipo:</label>
-                    <input type="text" id="tipo" name="tipo" required class="w3-input w3-border">
+                    <label for="tipo_id">Tipo:</label>
+                    <select id="tipo_id" name="tipo_id" required class="w3-select w3-border">
+                        <option value="" disabled selected>Selecciona el tipo</option>
+                        <?php foreach ($tipos as $tipo): ?>
+                            <option value="<?php echo htmlspecialchars($tipo['id']); ?>"><?php echo htmlspecialchars($tipo['descripcion']); ?></option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
             </div>
             <div class="w3-row-padding">
                 <div class="w3-half">
-                    <label for="numero">Número:</label>
-                    <input type="number" id="numero" name="numero" required class="w3-input w3-border">
-                </div>
-                <div class="w3-half">
-                    <label for="imagen">Imagen:</label>
-                    <input type="text" id="imagen" name="imagen" required class="w3-input w3-border">
+                    <label for="imagen">Imagen (archivo):</label>
+                    <input type="file" id="imagen" name="imagen"  accept="image/*" required class="w3-input w3-border">
                 </div>
             </div>
             <input type="hidden" name="accion" value="agregar">
