@@ -12,7 +12,8 @@ if (!isset($_SESSION["logueado"])) {
 include 'database.php';
 $database = new Database();
 
-$query = "SELECT       pokemon.nro_id_unico, 
+$query = "SELECT       pokemon.id,
+                       pokemon.nro_id_unico, 
                        pokemon.nombre,
                        pokemon.descripcion AS pokemon_descripcion,
                        tipo.imagen AS tipo_img, 
@@ -87,6 +88,7 @@ if (!isset($_SESSION["logueado"])) {
         <tbody>
         <tr>
             <?php foreach ($resultado as $pokemon){
+
                 $nombre_pokemon = $pokemon['nombre']; //guardo el nombre del pokemon
 
                 $tipo_pokemon = $pokemon['tipo_descripcion']; //guardo el tipo de pokemon
@@ -112,8 +114,17 @@ if (!isset($_SESSION["logueado"])) {
                         <!-- Botón para ver más detalles del Pokémon -->
                         <td><button class="w3-button w3-blue" onclick="window.location.href=\'vistaPokemonSeleccionado.php?page='.$nombre_pokemon.'\'">Ver a '.$nombre_pokemon.'</button></td>
                         <td>
-                            <button class="w3-button w3-green"">Modificar</button>
-                            <button class="w3-button w3-red" ">Baja</button>
+                                    <form action="ABM.php" method="POST">
+                                        <input type="hidden" name="id" value="'.$pokemon['id'].'">
+                                        <p>El pokemon ID: '.$pokemon['id'].'</p>
+                                        <input type="hidden" name="accion" value="modificar">
+                                        <button type="submit" class="w3-button w3-green">Modificar</button>
+                                    </form>
+                                    <form action="ABM.php" method="POST">
+                                        <input type="hidden" name="id" value="'.$pokemon['id'].'">
+                                        <input type="hidden" name="accion" value="baja">
+                                        <button type="submit" class="w3-button w3-red">Baja</button>
+                                    </form>
                         </td>
                         </tr>';
             }

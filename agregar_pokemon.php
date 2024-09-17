@@ -4,7 +4,7 @@ session_start();
 // Verificar si el usuario está logueado
 if (!isset($_SESSION["logueado"])) {
     // Si no está logueado, redirigir al inicio
-    header("Location: index.php");
+    header("Location: vistaPokedexBusqueda.php");
     exit();
 }
 
@@ -22,16 +22,27 @@ if (!isset($_SESSION["logueado"])) {
 </head>
 <body>
 
-<header>
-    <div class="logo"><img src="img/pokedex-removebg-preview.png" alt="Logo"></div>
-    <div class="titulo"><img src="img/pokedex-titulo.png" alt=""></div>
+<?php
 
-    <div class="login">
-        <img src="img/foto_perfil.webp" alt="Usuario" class="user-image">
-        <p>Usuario: Administrador</p>
-    </div>
+// Verificar si el usuario está logueado
+if (!isset($_SESSION["logueado"])) {
+    // Si no está logueado le muestro el header de login
 
-</header>
+    include './header.php';
+}else{
+    //si esta logeado, le muestro el header para salir
+
+    echo '<header>
+            <div class="logo"><img src="imagenes/pokedex-removebg-preview.png"></div>
+            <div class="titulo"><img src="imagenes/pokedex-titulo.png"></div>
+            <div class="login">
+                <p>Usuario Administrador</p>
+                <input type="button" value="Salir" onclick="window.location.href=\'logout.php\'">
+            </div>
+        </header>';
+}
+
+?>
 
 <main>
     <div class="w3-container">

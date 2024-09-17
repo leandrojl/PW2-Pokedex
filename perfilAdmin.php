@@ -13,7 +13,7 @@ include_once 'database.php';
 
 $db = new Database();
 
-$sqlQuery = "SELECT id, imagen, nombre, descripcion FROM pokemon";
+$sqlQuery = "SELECT pokemon.nro_id_unico, pokemon.imagen, pokemon.nombre, pokemon.descripcion FROM pokemon JOIN tipo ON pokemon.tipo_id = tipo.id;";
 $resultado = $db->query($sqlQuery);
 
 ?>
@@ -63,9 +63,10 @@ $resultado = $db->query($sqlQuery);
             </thead>
             <tbody>
             <?php foreach ($resultado as $pokemon): ?>
+            <?php var_dump($pokemon);?>
                 <tr>
-                    <td><img src="img/<?php echo htmlspecialchars($pokemon['imagen']); ?>" alt="<?php echo htmlspecialchars($pokemon['nombre']); ?>" class="w3-image" style="width:100px;"></td>
-                    <td><img src="img/<?php echo htmlspecialchars($pokemon['tipo']); ?>.png" alt="Tipo <?php echo htmlspecialchars($pokemon['tipo']); ?>" class="w3-image" style="width:100px;"></td>
+                    <td><img src="img/<?php echo htmlspecialchars($pokemon['nombre']); ?>.png" alt="<?php echo htmlspecialchars($pokemon['nombre']); ?>" class="w3-image" style="width:100px;"></td>
+                    <td><img src="img/<?php echo htmlspecialchars($pokemon['pokemon_tipo']); ?>.png" alt="Tipo <?php echo htmlspecialchars($pokemon['tipo']); ?>" class="w3-image" style="width:100px;"></td>
                     <td>#<?php echo htmlspecialchars($pokemon['numero']); ?></td>
                     <td><?php echo htmlspecialchars($pokemon['nombre']); ?></td>
                     <td><button class="w3-button w3-blue" onclick="window.location.href='vistaPrincipalDeBusqueda.php?page=<?php echo urlencode($pokemon['nombre']); ?>&id=<?php echo $pokemon['id']; ?>'">Ver a <?php echo htmlspecialchars($pokemon['nombre']); ?></button></td>
