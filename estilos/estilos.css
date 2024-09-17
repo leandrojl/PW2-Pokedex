@@ -1,0 +1,104 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+header {
+    background-color: #4CAF50;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Efecto de sombra */
+}
+
+.logo img{
+   width: 8em;
+}
+.titulo img{
+    width: 15em;
+}
+
+
+header .login input[type="text"],
+header .login input[type="password"] {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+}
+
+header .login input[type="submit"] {
+    padding: 10px 15px;
+    background-color: white;
+    color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+header .login input[type="submit"]:hover {
+    background-color: #4b58da;
+    color: white;
+}
+
+
+main {
+    padding: 20px;
+}
+
+form.buscador {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+form.buscador input[type="text"] {
+    width: 50%;
+    padding: 15px;
+    border: 2px solid #4CAF50;
+    border-radius: 25px 0 0 25px;
+    outline: none;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+form.buscador input[type="text"]:focus {
+    border-color: #45a049;
+    box-shadow: 0 0 10px rgba(0, 128, 0, 0.5);
+}
+
+form.buscador input[type="submit"] {
+    padding: 15px 30px;
+    background-color: #4CAF50;
+    border: 2px solid #4CAF50;
+    color: white;
+    border-radius: 0 25px 25px 0;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+form.buscador input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+
+header .login input[type="button"] {
+    padding: 10px 15px;
+    background-color: white;
+    color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+header .login input[type="button"]:hover {
+    background-color: #4b58da;
+    color: white;
+}
