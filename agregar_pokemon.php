@@ -1,13 +1,13 @@
 <?php
 session_start();
-/*
+
 // Verificar si el usuario está logueado
 if (!isset($_SESSION["logueado"])) {
     // Si no está logueado, redirigir al inicio
-    header("Location: index.php");
+    header("Location: vistaPokemonBusqueda.php");
     exit();
 }
-*/
+
 include_once 'database.php';
 include_once 'PokemonManager.php';
 

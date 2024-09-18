@@ -8,15 +8,11 @@ $pokemonManager = new PokemonManager($db);
 session_start();
 
 // Verificar si el usuario está logueado
-/*
+
 if (!isset($_SESSION["logueado"])) {
-    header("Location: index.php");
+    header("Location: vistaPokedexBusqueda.php");
     exit();
 }
-*/
-
-include_once 'database.php';
-include_once 'PokemonManager.php';
 
 $db = new Database();
 $pokemonManager = new PokemonManager($db);
@@ -50,7 +46,7 @@ if (isset($_POST['accion'])) {
             exit();
         }
 
-        $carpetaDestino = 'img/';
+        $carpetaDestino = 'imagenes/';
         $nombreImagen = $nombre; // Hago que el nombre de la imagen sea igual al nombre del pokemon, para despues mostrarlo bien en la vista principal
         $rutaImagen = $carpetaDestino . $nombreImagen . '.' . $extensionArchivo;
 

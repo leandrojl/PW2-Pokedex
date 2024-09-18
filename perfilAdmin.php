@@ -1,13 +1,12 @@
 <?php
 session_start();
-/*
+
 // Verificar si el usuario está logueado
 if (!isset($_SESSION["logueado"])) {
     // Si no está logueado, redirigir al inicio
-    header("Location: index.php");
+    header("Location: vistaPokedexBusqueda.php");
     exit();
 }
-*/
 
 
 include_once 'database.php';
@@ -20,7 +19,7 @@ $pokemonManager = new PokemonManager($db);
 
 // Creo la query pra obtener todos los pokemons y todos sus atributos
 $sqlQuery = "
-    SELECT p.id, p.imagen, p.nombre, t.descripcion AS tipo
+    SELECT p.id, p.imagen, p.nombre,p.descripcion, t.descripcion AS tipo
     FROM pokemon p
     JOIN tipo t ON p.tipo_id = t.id
 ";
@@ -30,10 +29,12 @@ $resultado = $db->conexion->query($sqlQuery);
 
 function obtenerRutaImagen($ruta) {
     // Si viene con/img lo elimina
-    $rutaLimpia = str_replace('img/', '', $ruta);
+    $rutaLimpia = str_replace('imagenes/', '', $ruta);
 
     return 'img/' . $rutaLimpia;
 }
+
+$tipos = $pokemonManager->obtenerTipos();
 ?>
 
 <!DOCTYPE html>
@@ -47,17 +48,57 @@ function obtenerRutaImagen($ruta) {
     <title>Pokedex</title>
 </head>
 <body>
-<header>
-    <div class="logo"><img src="img/pokedex-removebg-preview.png" alt="Logo"></div>
-    <div class="titulo"><img src="img/pokedex-titulo.png" alt=""></div>
+<?php
 
-    <div class="login">
-        <img src="img/ash.jfif" alt="Usuario" class="user-image">
-        <p>Usuario: Administrador</p>
-    </div>
-</header>
+// Verificar si el usuario está logueado
+if (!isset($_SESSION["logueado"])) {
+    // Si no está logueado le muestro el header de login
+
+    include './header.php';
+}else{
+    //si esta logeado, le muestro el header para salir
+
+    echo '<header>
+            <div class="logo"><img src="imagenes/pokedex-removebg-preview.png"></div>
+            <div class="titulo"><img src="imagenes/pokedex-titulo.png"></div>
+            <div class="login">
+                <p>Usuario Administrador</p>
+                <input type="button" value="Salir" onclick="window.location.href=\'logout.php\'">
+            </div>
+        </header>';
+}
+
+?>
 
 <main>
+    <div class="w3-container">
+        <h2 class="w3-center">Agregar Nuevo Pokémon</h2>
+        <form action="ABM.php" method="POST"  enctype="multipart/form-data" class="w3-form">
+            <div class="w3-row-padding">
+                <div class="w3-half">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" class="w3-input w3-border">
+                </div>
+                <div class="w3-half">
+                    <label for="tipo_id">Tipo:</label>
+                    <select id="tipo_id" name="tipo_id" required class="w3-select w3-border">
+                        <option value="" disabled selected>Selecciona el tipo</option>
+                        <?php foreach ($tipos as $tipo): ?>
+                            <option value="<?php echo htmlspecialchars($tipo['id']); ?>"><?php echo htmlspecialchars($tipo['descripcion']); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="w3-row-padding">
+                <div class="w3-half">
+                    <label for="imagen">Imagen (archivo):</label>
+                    <input type="file" id="imagen" name="imagen"  accept="image/*" required class="w3-input w3-border">
+                </div>
+            </div>
+            <input type="hidden" name="accion" value="agregar">
+            <button type="submit" class="w3-button w3-teal">Agregar Pokémon</button>
+        </form>
+    </div>
     <form class="buscador" action="" method="get">
         <input type="text" name="query" placeholder="Ingrese el nombre, tipo o número de pokemon" required>
         <input type="submit" value="¿Quién es este pokemon?">
@@ -72,6 +113,7 @@ function obtenerRutaImagen($ruta) {
                 <th>Tipo</th>
                 <th>Número</th>
                 <th>Nombre</th>
+                <th>Descripcion</th>
                 <th>Ver Pokémon</th>
                 <th>Acciones</th>
             </tr>
@@ -80,18 +122,18 @@ function obtenerRutaImagen($ruta) {
             <?php foreach ($resultado as $pokemon): ?>
                 <tr>
                     <td>
-                         <img src="<?php echo obtenerRutaImagen(htmlspecialchars($pokemon['imagen'])); ?>"
+                         <img src="./imagenes/<?php echo $pokemon['nombre']; ?>.png"
                                alt="<?php echo htmlspecialchars($pokemon['nombre']); ?>"
                                class="w3-image"
                                style="width:100px;">
                     </td>
 
 
-
-                    <td><img src="img/<?php echo $pokemon['tipo']; ?>.png" alt="Tipo <?php echo $pokemon['tipo']; ?>" class="w3-image" style="width:100px;"></td>
+                    <td><img src="imagenes/<?php echo $pokemon['tipo']; ?>.png" alt="Tipo <?php echo $pokemon['tipo']; ?>" class="w3-image" style="width:100px;"></td>
                     <td>#<?php echo $pokemon['id']; ?></td>
                     <td><?php echo $pokemon['nombre']; ?></td>
-                    <td><button class="w3-button w3-blue" onclick="window.location.href='vistaPrincipalDeBusqueda.php?page=<?php echo urlencode($pokemon['nombre']); ?>&id=<?php echo $pokemon['id']; ?>'">Ver a <?php echo $pokemon['nombre']; ?></button></td>
+                    <td><?php echo $pokemon['descripcion']; ?></td>
+                    <td><button class="w3-button w3-blue" onclick="window.location.href='vistaPokemonSeleccionado.php?page=<?php echo $pokemon['nombre'] ?>&id=<?php echo $pokemon['id']; ?>'">Ver a <?php echo $pokemon['nombre']; ?></button></td>
                     <td>
                         <form action="modificar_pokemon.php" method="GET">
                             <input type="hidden" name="id" value="<?php echo $pokemon['id']; ?>">
@@ -109,7 +151,7 @@ function obtenerRutaImagen($ruta) {
             </tbody>
         </table>
 
-        <a href="agregar_pokemon.php" class="w3-button w3-teal">Agregar Pokémon</a>
+
     </div>
 </main>
 </body>
