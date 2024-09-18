@@ -1,0 +1,246 @@
+*{
+    font-family: Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #4CAF50;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Efecto de sombra */
+}
+
+/*imagen del pokedex*/
+.logo img{
+   width: 8em;
+}
+
+/*Titulo Pokedex*/
+.titulo img{
+    width: 15em;
+}
+
+/*Ingreso de usuario*/
+header .login input[type="text"],
+header .login input[type="password"] {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+}
+
+header .login input[type="submit"] {
+    padding: 10px 15px;
+    background-color: white;
+    color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+header .login input[type="submit"]:hover {
+    background-color: #4b58da;
+    color: white;
+}
+
+header .login input[type="button"] {
+    padding: 10px 15px;
+    background-color: white;
+    color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+header .login input[type="button"]:hover {
+    background-color: #4b58da;
+    color: white;
+}
+
+
+main {
+    padding: 20px;
+}
+
+/*Buscador*/
+
+form.buscador {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+form.buscador input[type="text"] {
+    width: 50%;
+    padding: 15px;
+    border: 2px solid #4CAF50;
+    border-radius: 25px 0 0 25px;
+    outline: none;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+form.buscador input[type="text"]:focus {
+    border-color: #45a049;
+    box-shadow: 0 0 10px rgba(0, 128, 0, 0.5);
+}
+
+form.buscador input[type="submit"] {
+    padding: 15px 30px;
+    background-color: #4CAF50;
+    border: 2px solid #4CAF50;
+    color: white;
+    border-radius: 0 25px 25px 0;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+form.buscador input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+
+
+/* botón de nuevo */
+#nuevoBtn {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* popup */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Asegura que ocupe toda la altura de la ventana */
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+    overflow-y: auto; /* Permite el scroll vertical si el contenido es demasiado grande */
+    padding: 20px; /* Añade espacio para que el contenido no toque el borde */
+}
+
+/* contenido del popup */
+.popup-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+    border-radius: 5px;
+}
+
+/* botón de cerrar popup*/
+.close {
+    color: #4CAF50;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 10px 15px;
+    background-color: white;
+    border: none;
+}
+
+
+.close:hover,
+.close:focus {
+    text-decoration: none;
+    cursor: pointer;
+    background-color: #d83e49;
+    color: white;
+}
+
+
+
+/*formulario de carga*/
+
+#nuevoForm {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+#nuevoForm label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+
+#nuevoForm input[type="number"]{
+    padding: 5px;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+
+}
+
+#nuevoForm input[type="text"]{
+    padding: 5px;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+}
+
+/*imagen para cargar*/
+#previewImg{
+    display:none;
+    width: 200px;
+    height: auto;
+}
+
+
+/*Tipos*/
+select{
+    padding: 5px;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+
+}
+
+/*descripcion del pokemon*/
+
+textarea{
+    padding: 5px;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    height: 150px;
+}
+
+/*boton para cargar el nuevo pokemon*/
+.cargar{
+    color: #4CAF50;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 5px;
+    border: #4CAF50 1px solid;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 10px 15px;
+    background-color: white;
+
+}
+
+.cargar:hover{
+    text-decoration: none;
+    cursor: pointer;
+    background-color: #4b58da;
+    color: white;}
