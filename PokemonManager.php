@@ -8,6 +8,8 @@ class PokemonManager {
     }
 
 
+
+
     public function obtenerPokemonPorId($id) {
         $sqlQuery = "SELECT p.id, p.nro_id_unico, p.nombre, p.imagen, p.descripcion, p.tipo_id, t.descripcion AS tipo 
                      FROM pokemon p 

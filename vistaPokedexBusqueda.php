@@ -11,31 +11,7 @@ include 'database.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <style>
-        .w3-bar {
-            display: flex;
-            justify-content: space-between;
-            margin: 0 auto; /* Centra el menú horizontalmente */
-        }
-        .iframe-container {
-            display: flex;
-            justify-content: center;
 
-            align-items: center;
-            width: 80%;
-            max-width: 1200px;
-            margin: 0 auto;
-            height: 70vh;
-            padding: 0;
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-    </style>
 </head>
 <body>
 <?php
@@ -114,7 +90,13 @@ if (!isset($_SESSION["logueado"])) {
         </tr>
         </thead>
         <tbody>
+        <?php
+
+        ?>
+
+
         <?php foreach ($resultado as $pokemon){
+
                 $nombre_pokemon = $pokemon['nombre']; //guardo el nombre del pokemon
 
                 $tipo_pokemon = $pokemon['tipo_descripcion']; //guardo el tipo de pokemon
@@ -126,7 +108,7 @@ if (!isset($_SESSION["logueado"])) {
 
                 echo'<tr>
                         <!-- Mostrar la imagen del Pokémon -->
-                        <td><img src="./imagenes/'.$nombre_pokemon.'.png" alt="'.$nombre_pokemon.'" class="w3-image" style="width:100px;"></td>
+                        <td><img src="'.$database->buscarImagen($pokemon['nombre']).'" alt="'.$nombre_pokemon.'" class="w3-image" style="width:100px;"></td>
         
                         <!-- Mostrar la imagen del tipo de Pokémon -->
                         <td><img src="./imagenes/'.$tipo_pokemon.'.png" alt="Tipo '.$tipo_pokemon.'" class="w3-image" style="width:100px;"></td>

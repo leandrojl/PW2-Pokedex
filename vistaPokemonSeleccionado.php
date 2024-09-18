@@ -65,7 +65,7 @@ if (!isset($_SESSION["logueado"])) {
 
     echo '<div class="w3-row-padding w3-margin">
                     <div class="w3-col l6 m6 s12">
-                        <img src="./imagenes/'.$nombre_pokemon.'.png" alt="'.$nombre_pokemon.'" class="w3-image w3-round-large w3-card-4" style="width: 100%; max-width: 400px;">
+                        <img src="'.$database->buscarImagen($nombre_pokemon).'" alt="'.$nombre_pokemon.'" class="w3-image w3-round-large w3-card-4" style="width: 100%; max-width: 400px;">
                     </div>
                     <div class="w3-col l6 m6 s12">
                         <div class="w3-container">
