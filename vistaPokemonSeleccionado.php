@@ -8,6 +8,7 @@ $database = new Database(); //en esta instancia creo la conexion a la base de da
 
 $query = "SELECT       pokemon.nro_id_unico, 
                        pokemon.nombre,
+                       pokemon.id,
                        pokemon.descripcion AS pokemon_descripcion,
                        tipo.imagen AS tipo_img, 
                        tipo.descripcion AS tipo_descripcion
@@ -65,7 +66,7 @@ if (!isset($_SESSION["logueado"])) {
 
     echo '<div class="w3-row-padding w3-margin">
                     <div class="w3-col l6 m6 s12">
-                        <img src="'.$database->buscarImagen($nombre_pokemon).'" alt="'.$nombre_pokemon.'" class="w3-image w3-round-large w3-card-4" style="width: 100%; max-width: 400px;">
+                        <img src="'.$database->buscarImagen($pokemon["id"]).'" alt="'.$nombre_pokemon.'" class="w3-image w3-round-large w3-card-4" style="width: 100%; max-width: 400px;">
                     </div>
                     <div class="w3-col l6 m6 s12">
                         <div class="w3-container">

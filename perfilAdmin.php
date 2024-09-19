@@ -31,7 +31,7 @@ function obtenerRutaImagen($ruta) {
     // Si viene con/img lo elimina
     $rutaLimpia = str_replace('imagenes/', '', $ruta);
 
-    return 'img/' . $rutaLimpia;
+    return 'imagenes/' . $rutaLimpia;
 }
 
 $tipos = $pokemonManager->obtenerTipos();
@@ -122,7 +122,7 @@ if (!isset($_SESSION["logueado"])) {
             <?php foreach ($resultado as $pokemon): ?>
                 <tr>
                     <td>
-                         <img src="<?php echo $db->buscarImagen($pokemon['nombre'])?>"
+                         <img src="<?php echo $db->buscarImagen($pokemon['id'])?>"
                                alt="<?php echo htmlspecialchars($pokemon['nombre']); ?>"
                                class="w3-image"
                                style="width:100px;">

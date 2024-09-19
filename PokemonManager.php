@@ -70,7 +70,7 @@ class PokemonManager {
 
 
         $stmt = $this->db->conexion->prepare($sqlQuery);
-        $stmt->bind_param('sissi', $nombre, $tipo_id, $descripcion, $imagen, $id);
+        $stmt->bind_param('sissi', $nombre, $tipo_id, $descripcion, $imagen,$id);
 
         // Ejecutar la consulta y tira error si no lo hace
         if (!$stmt->execute()) {
@@ -88,5 +88,15 @@ class PokemonManager {
         $stmt->execute();
         $stmt->close();
     }
+
+    public function obtenerNumeroTotalDePokemones() {
+        $sqlQuery = "SELECT COUNT(id) AS total FROM pokemon";
+        $resultado = $this->db->conexion->query($sqlQuery);
+
+        $fila = $resultado->fetch_assoc();
+
+        return $fila['total'];
+    }
+
 }
 ?>
