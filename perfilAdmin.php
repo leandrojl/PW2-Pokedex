@@ -122,7 +122,7 @@ if (!isset($_SESSION["logueado"])) {
             <?php foreach ($resultado as $pokemon): ?>
                 <tr>
                     <td>
-                         <img src="<?php echo $db->buscarImagen($pokemon['nombre'])?>"
+                         <img src="<?php echo $db->buscarImagen($pokemon['imagen'])?>"
                                alt="<?php echo htmlspecialchars($pokemon['nombre']); ?>"
                                class="w3-image"
                                style="width:100px;">
