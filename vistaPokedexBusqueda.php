@@ -64,7 +64,7 @@ if (!isset($_SESSION["logueado"])) {
 
     $database = new Database();
 
-    $query = "SELECT       pokemon.nro_id_unico, 
+    $query = "SELECT       pokemon.nro_id_unico, pokemon.imagen,
                        pokemon.nombre,
                        pokemon.descripcion AS pokemon_descripcion,
                        tipo.imagen AS tipo_img, 
@@ -108,7 +108,7 @@ if (!isset($_SESSION["logueado"])) {
 
                 echo'<tr>
                         <!-- Mostrar la imagen del Pokémon -->
-                        <td><img src="'.$database->buscarImagen($pokemon['nombre']).'" alt="'.$nombre_pokemon.'" class="w3-image" style="width:100px;"></td>
+                        <td><img src="'.$database->buscarImagen($pokemon['imagen']).'" alt="'.$nombre_pokemon.'" class="w3-image" style="width:100px;"></td>
         
                         <!-- Mostrar la imagen del tipo de Pokémon -->
                         <td><img src="./imagenes/'.$tipo_pokemon.'.png" alt="Tipo '.$tipo_pokemon.'" class="w3-image" style="width:100px;"></td>
