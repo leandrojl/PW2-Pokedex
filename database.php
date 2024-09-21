@@ -45,4 +45,16 @@ class Database{
         return $this->conexion->prepare($query);
 
     }
+    function traerTodos(){
+        $query = "SELECT       pokemon.id as pokemon_id,pokemon.nro_id_unico, pokemon.imagen,
+                       pokemon.nombre,
+                       pokemon.descripcion AS pokemon_descripcion,
+                       tipo.imagen AS tipo_img, 
+                       tipo.descripcion AS tipo_descripcion
+
+          FROM         pokemon
+              
+          JOIN         tipo ON pokemon.tipo_id = tipo.id";
+        return  $this->conexion->query($query);
+    }
 }

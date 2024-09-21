@@ -30,19 +30,7 @@ include './barraBuscadora.php'
 
     <?php
     $database = new Database();
-    $query = "SELECT       pokemon.nro_id_unico, pokemon.imagen,
-                       pokemon.nombre,
-                       pokemon.descripcion AS pokemon_descripcion,
-                       tipo.imagen AS tipo_img, 
-                       tipo.descripcion AS tipo_descripcion
-
-              FROM         pokemon
-                  
-              JOIN         tipo ON pokemon.tipo_id = tipo.id;
-    ";
-    // Ejecutar la consulta
-    $resultado = $database->query($query);
-
+    $resultado=$database->traerTodos();
     ?>
 
     <table class="w3-table w3-bordered w3-striped w3-hoverable">

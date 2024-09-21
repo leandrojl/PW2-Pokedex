@@ -1,5 +1,5 @@
 <?php
-$pokemonBuscado =$_POST['datoBuscado'];
+$pokemonBuscado = $_POST['datoBuscado'];
 //echo $pokemonBuscado;
 require 'database.php';
 $database = new Database();
@@ -16,11 +16,11 @@ $query = "SELECT pokemon.id as pokemon_id,
               
           JOIN         tipo ON pokemon.tipo_id = tipo.id 
           WHERE nombre= ?";
-$stmt=$database->prepare($query);
+$stmt = $database->prepare($query);
 $stmt->bind_param("s", $pokemonBuscado);
 $stmt->execute();
 $resultado = $stmt->get_result();
-$pokemonPorNombre=$resultado->fetch_assoc();
+$pokemonPorNombre = $resultado->fetch_assoc();
 
 $query = "SELECT       pokemon.id as pokemon_id,pokemon.nro_id_unico, pokemon.imagen,
                        pokemon.nombre,
@@ -32,15 +32,14 @@ $query = "SELECT       pokemon.id as pokemon_id,pokemon.nro_id_unico, pokemon.im
               
           JOIN         tipo ON pokemon.tipo_id = tipo.id
           WHERE tipo.descripcion = ?";
-$stmt=$database -> prepare($query);
+$stmt = $database->prepare($query);
 $stmt->bind_param("s", $pokemonBuscado);
 $stmt->execute();
-$resultado= $stmt->get_result();
-$pokemonPorTipo=$resultado->fetch_all(MYSQLI_ASSOC);
+$resultado = $stmt->get_result();
+$pokemonPorTipo = $resultado->fetch_all(MYSQLI_ASSOC);
 
 
-
-$query="SELECT       pokemon.id as pokemon_id,pokemon.nro_id_unico, pokemon.imagen,
+$query = "SELECT       pokemon.id as pokemon_id,pokemon.nro_id_unico, pokemon.imagen,
                        pokemon.nombre,
                        pokemon.descripcion AS pokemon_descripcion,
                        tipo.imagen AS tipo_img, 
@@ -51,37 +50,33 @@ $query="SELECT       pokemon.id as pokemon_id,pokemon.nro_id_unico, pokemon.imag
           JOIN         tipo ON pokemon.tipo_id = tipo.id 
           WHERE nro_id_unico =?";
 $bindParam = "s";
-$pokemonPorNumero=factorizacionDeConsulta($query,$bindParam, $pokemonBuscado );
+$pokemonPorNumero = factorizacionDeConsulta($query, $bindParam, $pokemonBuscado);
 
 
-
-
-if(!empty($pokemonPorNumero)) {
+if (!empty($pokemonPorNumero)) {
     $buscarDato = true;
     foreach ($pokemonPorTipo as $pokemon) {
         if ($pokemon['nro_id_unico'] == $pokemonPorNumero['nro_id_unico'])
             $buscarDato = false;
     }
-    if ($buscarDato) $pokemonPorTipo[]=$pokemonPorNumero;
+    if ($buscarDato) $pokemonPorTipo[] = $pokemonPorNumero;
 }
 
 
-if(!empty($pokemonPorNombre)) {
+if (!empty($pokemonPorNombre)) {
     $buscarDato = true;
     foreach ($pokemonPorTipo as $pokemon) {
         if ($pokemon['nro_id_unico'] == $pokemonPorNombre['nro_id_unico'])
             $buscarDato = false;
     }
-    if ($buscarDato) $pokemonPorTipo[]=$pokemonPorNombre;
+    if ($buscarDato) $pokemonPorTipo[] = $pokemonPorNombre;
 
-    }
-
-
+}
 
 
-if(!empty($pokemonPorTipo)){
+if (!empty($pokemonPorTipo)) {
 
-    echo'<div class="w3-container">
+    echo '<div class="w3-container">
     <h2 class="w3-center">Resultado de busqueda</h2>
 
     <table class="w3-table w3-bordered w3-striped w3-hoverable">
@@ -98,7 +93,7 @@ if(!empty($pokemonPorTipo)){
         ';
 
     foreach ($pokemonPorTipo as $pokemon) {
-        $pokemon_id=$pokemon['pokemon_id'];
+        $pokemon_id = $pokemon['pokemon_id'];
         $nombre_pokemon = $pokemon['nombre']; //guardo el nombre del pokemon
 
         $tipo_pokemon = $pokemon['tipo_descripcion']; //guardo el tipo de pokemon
@@ -125,45 +120,32 @@ if(!empty($pokemonPorTipo)){
                         <td><button class="w3-button w3-blue" onclick="window.location.href=\'vistaPokemonSeleccionado.php?page=' . $nombre_pokemon . '\'">Ver a ' . $nombre_pokemon . '</button></td>
 ';
         //Evaluamos si esta logueado, si es asi, le agregamos los botones de modificar o borrar
-        if(isset($_SESSION['logueado']) && $_SESSION['logueado']==1){
-    echo' <td>
+        if (isset($_SESSION['logueado']) && $_SESSION['logueado'] == 1) {
+            echo ' <td>
                         <form action="modificar_pokemon.php" method="GET">
-                            <input type="hidden" name="id" value="'.$pokemon['pokemon_id'].'">
+                            <input type="hidden" name="id" value="' . $pokemon['pokemon_id'] . '">
                             <button type="submit" class="w3-button w3-green">Modificar</button>
                         </form>
                         <form action="ABM.php" method="POST">
-                            <input type="hidden" name="id" value="'.$pokemon['pokemon_id'].'">
+                            <input type="hidden" name="id" value="' . $pokemon['pokemon_id'] . '">
                             <input type="hidden" name="accion" value="baja">
                             <button type="submit" class="w3-button w3-red">Baja</button>
                         </form>
                     </td>';
         }
 
-        echo'                       </tr>';
+        echo '                       </tr>';
     }
-    echo'      </tbody>
+    echo '      </tbody>
     </table>
     </div>
-    ';}
-    else {
-        echo '    <h1 class="w3-center">Búsqueda sin resultados</h1>
+    ';
+} else {
+    echo '    <h1 class="w3-center">Búsqueda sin resultados</h1>
 ';
 
-
-        $query = "SELECT       pokemon.nro_id_unico, pokemon.imagen,
-                       pokemon.nombre,
-                       pokemon.descripcion AS pokemon_descripcion,
-                       tipo.imagen AS tipo_img, 
-                       tipo.descripcion AS tipo_descripcion
-
-              FROM         pokemon
-                  
-              JOIN         tipo ON pokemon.tipo_id = tipo.id;
-    ";
-        // Ejecutar la consulta
-        $resultado = $database->query($query);
-
-        echo'<div class="w3-container">
+    $resultado = $database->traerTodos();
+    echo '<div class="w3-container">
     <h2 class="w3-center">Pokedex Disponible</h2>
 
     <table class="w3-table w3-bordered w3-striped w3-hoverable">
@@ -179,18 +161,18 @@ if(!empty($pokemonPorTipo)){
         <tbody>
         ';
 
-        foreach ($resultado as $pokemon) {
+    foreach ($resultado as $pokemon) {
 
-            $nombre_pokemon = $pokemon['nombre']; //guardo el nombre del pokemon
+        $nombre_pokemon = $pokemon['nombre']; //guardo el nombre del pokemon
 
-            $tipo_pokemon = $pokemon['tipo_descripcion']; //guardo el tipo de pokemon
+        $tipo_pokemon = $pokemon['tipo_descripcion']; //guardo el tipo de pokemon
 
-            $nro_id_unico = $pokemon['nro_id_unico']; //guardo su numero identificador unico
+        $nro_id_unico = $pokemon['nro_id_unico']; //guardo su numero identificador unico
 
-            $pokemon_descripcion = $pokemon['pokemon_descripcion']; //guardo la descripcion del pokemon
+        $pokemon_descripcion = $pokemon['pokemon_descripcion']; //guardo la descripcion del pokemon
 
 
-            echo '<tr>
+        echo '<tr>
                         <!-- Mostrar la imagen del Pokémon -->
                         <td><img src="' . $database->buscarImagen($pokemon['imagen']) . '" alt="' . $nombre_pokemon . '" class="w3-image" style="width:100px;"></td>
         
@@ -207,23 +189,22 @@ if(!empty($pokemonPorTipo)){
                         <td><button class="w3-button w3-blue" onclick="window.location.href=\'vistaPokemonSeleccionado.php?page=' . $nombre_pokemon . '\'">Ver a ' . $nombre_pokemon . '</button></td>
 
                         </tr>';
-        }
-        echo'      </tbody>
+    }
+    echo '      </tbody>
     </table>
     </div>
-    ';}
-
-
+    ';
+}
 
 
 function factorizacionDeConsulta($consulta, $bind_param1, $busqueda)
 {
     $database = new Database();
-    $stmt=$database -> prepare($consulta);
+    $stmt = $database->prepare($consulta);
     $stmt->bind_param($bind_param1, $busqueda);
     $stmt->execute();
-    $resultado= $stmt->get_result();
-    $resultado=$resultado->fetch_assoc();
+    $resultado = $stmt->get_result();
+    $resultado = $resultado->fetch_assoc();
     return $resultado;
 }
 
