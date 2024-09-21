@@ -27,17 +27,29 @@ $resultado = $database->query($query);
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Pokedex</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <link rel="shortcut icon" href="img/Pokebola.png">
+    <title>Pokedex</title>
 </head>
-<body>
-<?php
+<header>
+
+    <?php
 
 
     include './header.php';
 
 
+    ?>
+</header>
+<body>
+<?php
+include './barraBuscadora.php'
 ?>
+
+
 
 <?php foreach ($resultado as $pokemon){
 

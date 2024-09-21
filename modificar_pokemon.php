@@ -36,6 +36,9 @@ $tipos = $pokemonManager->obtenerTipos();
         <p>Usuario: Administrador</p>
     </div>
 </header>
+<?php
+include './barraBuscadora.php'
+?>
 
 <main>
     <div class="w3-container">

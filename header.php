@@ -30,14 +30,18 @@ if (!isset($_SESSION["logueado"])) {
 }else{
 //si esta logeado, le muestro el header para salir
 
-    echo '<header>
-    <div class="logo"><img src="imagenes/pokedex-removebg-preview.png"></div>
-    <div class="titulo"><img src="imagenes/pokedex-titulo.png"></div>
-    <div class="login">
+    echo '<div class="w3-container w3-red w3-padding-16">
+<div class="w3-row">
+   <div class="w3-col l3"><img  src="imagenes/pokedex-removebg-preview.png"></div>
+    <div class="w3-col w3-center l6"> <img  src="imagenes/pokedex-titulo.png"></div>
+    <div  class="w3-col l3">
         <p>Usuario Administrador</p>
         <input type="button" value="Salir" onclick="window.location.href=\'logout.php\'">
     </div>
-</header>';
+    </div>
+    </div>
+   
+';
 }
 
 ?>

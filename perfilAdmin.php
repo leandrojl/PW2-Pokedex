@@ -43,19 +43,21 @@ $tipos = $pokemonManager->obtenerTipos();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="styles/style.css">
+ <!-- <link rel="stylesheet" href="styles/style.css">-->
     <link rel="shortcut icon" href="img/Pokebola.png">
     <title>Pokedex</title>
 </head>
-<body>
-<?php
+
+
+<header><?php
 
 
     include './header.php';
 
 
 ?>
-
+</header>
+<body>
 <main>
     <div class="w3-container">
         <h2 class="w3-center">Agregar Nuevo Pokémon</h2>
@@ -85,10 +87,10 @@ $tipos = $pokemonManager->obtenerTipos();
             <button type="submit" class="w3-button w3-teal">Agregar Pokémon</button>
         </form>
     </div>
-    <form class="buscador" action="" method="get">
-        <input type="text" name="query" placeholder="Ingrese el nombre, tipo o número de pokemon" required>
-        <input type="submit" value="¿Quién es este pokemon?">
-    </form>
+
+    <?php
+    include './barraBuscadora.php'
+    ?>
 
     <div class="w3-container">
         <h2 class="w3-center">Lista de Pokémon</h2>
