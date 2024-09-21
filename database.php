@@ -39,4 +39,10 @@ class Database{
         }
         return null; // Retorna null si no encuentra ninguna imagen
     }
+
+    public function prepare(string $query)
+    {
+        return $this->conexion->prepare($query);
+
+    }
 }
