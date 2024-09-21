@@ -187,13 +187,28 @@ if (!empty($pokemonPorTipo)) {
         
                         <!-- Botón para ver más detalles del Pokémon -->
                         <td><button class="w3-button w3-blue" onclick="window.location.href=\'vistaPokemonSeleccionado.php?page=' . $nombre_pokemon . '\'">Ver a ' . $nombre_pokemon . '</button></td>
+'; //Evaluamos si esta logueado, si es asi, le agregamos los botones de modificar o borrar
+        if (isset($_SESSION['logueado']) && $_SESSION['logueado'] == 1) {
+            echo ' <td>
+                        <form action="modificar_pokemon.php" method="GET">
+                            <input type="hidden" name="id" value="' . $pokemon['pokemon_id'] . '">
+                            <button type="submit" class="w3-button w3-green">Modificar</button>
+                        </form>
+                        <form action="ABM.php" method="POST">
+                            <input type="hidden" name="id" value="' . $pokemon['pokemon_id'] . '">
+                            <input type="hidden" name="accion" value="baja">
+                            <button type="submit" class="w3-button w3-red">Baja</button>
+                        </form>
+                    </td>';
+        }
 
-                        </tr>';
+        echo '                       </tr>';
     }
     echo '      </tbody>
     </table>
     </div>
     ';
+
 }
 
 
