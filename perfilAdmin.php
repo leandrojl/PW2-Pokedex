@@ -65,7 +65,15 @@ $tipos = $pokemonManager->obtenerTipos();
             <div class="w3-row-padding">
                 <div class="w3-half">
                     <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" class="w3-input w3-border">
+                    <input type="text" id="nombre" name="nombre" class="w3-input w3-border" placeholder="Nombre del pokemon">
+                </div>
+                <div class="w3-half">
+                    <label for="descripcion">Descripcion:</label>
+                    <textarea name="descripcion" id="descripcion" class="w3-input w3-border" placeholder="Breve descripcion"></textarea>
+                </div>
+                <div class="w3-half">
+                    <label for="nro_id_unico">Id unico:</label>
+                    <input type="number" name="nro_id_unico" id="nro_id_unico" class="w3-input w3-border" placeholder="ID del pokemon">
                 </div>
                 <div class="w3-half">
                     <label for="tipo_id">Tipo:</label>

@@ -67,9 +67,16 @@ if (isset($_POST['accion'])) {
     if ($accion === 'agregar') {
         // Me aseguro que $rutaImagen contiene la ruta de la imagen subida
         if ($rutaImagen !== null) {
-            $pokemonManager->agregarPokemon($nombre, $tipo_id, $rutaImagen);
-            header("Location: perfilAdmin.php");
-            exit();
+            $pokemones = $pokemonManager->buscarPokemonPorNroIdUnico($_POST["nro_id_unico"]); //validar que no se agregue un pokemon con mismo nro_id_unico
+            if($pokemones->num_rows === 0){
+                $pokemonManager->agregarPokemon($nombre, $tipo_id, $rutaImagen);
+                header("Location: perfilAdmin.php");
+                exit();
+            }else{
+                echo "Error: nro_id_unico existente.";
+                exit();
+            }
+
         } else {
             echo "Error: no se subio ninguna imagen.";
             exit();

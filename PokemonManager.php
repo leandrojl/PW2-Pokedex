@@ -88,5 +88,14 @@ class PokemonManager {
         $stmt->execute();
         $stmt->close();
     }
+
+    public function buscarPokemonPorNroIdUnico($nro_id_unico){
+        $sqlQuery = "SELECT id FROM pokemon WHERE nro_id_unico = ?";
+        $stmt = $this->db->conexion->prepare($sqlQuery);
+        $stmt->bind_param("i", $nro_id_unico);
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
 }
 ?>
