@@ -43,33 +43,35 @@ $tipos = $pokemonManager->obtenerTipos();
 </header>
 
 <main>
-    <div class="w3-container">
-        <h2 class="w3-center">Agregar Nuevo Pokémon</h2>
-        <form action="ABM.php" method="POST"  enctype="multipart/form-data" class="w3-form">
-            <div class="w3-row-padding">
-                <div class="w3-half">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" required class="w3-input w3-border">
-                </div>
-                <div class="w3-half">
-                    <label for="tipo_id">Tipo:</label>
-                    <select id="tipo_id" name="tipo_id" required class="w3-select w3-border">
-                        <option value="" disabled selected>Selecciona el tipo</option>
-                        <?php foreach ($tipos as $tipo): ?>
-                            <option value="<?php echo htmlspecialchars($tipo['id']); ?>"><?php echo htmlspecialchars($tipo['descripcion']); ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-            </div>
-            <div class="w3-row-padding">
-                <div class="w3-half">
-                    <label for="imagen">Imagen (archivo):</label>
-                    <input type="file" id="imagen" name="imagen"  accept="image/*" required class="w3-input w3-border">
-                </div>
-            </div>
-            <input type="hidden" name="accion" value="agregar">
-            <button type="submit" class="w3-button w3-teal">Agregar Pokémon</button>
-        </form>
+    <div id="popupForm" class="popup">
+        <div class="popup-content">
+            <span class="close">&times;</span>
+            <h2>Ingrese nuevo pokémon</h2>
+            <form id="nuevoForm" method="post">
+                <label for="niu">Número identificador único:</label>
+                <input type="number" id="niu" name="niu">
+
+                <label for="archivo">Subir imagen:</label>
+                <input type="file" id="archivo" name="archivo" accept="image/*">
+                <img id="previewImg" src="" alt="Vista previa de la imagen">
+
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre">
+
+                <label for="tipo">Tipo:</label>
+                <select name="tipo" id="tipo">
+                    <option value="Fuego">Fuego</option>
+                    <option value="Agua">Agua</option>
+                    <option value="Hierba">Hierba</option>
+                    <option value="Electrico">Electrico</option>
+                </select>
+
+                <label for="descripcion">Descripción:</label>
+                <textarea id="descripcion"></textarea>
+
+                <button type="submit" class="cargar">Cargar nuevo pokémon</button>
+            </form>
+        </div>
     </div>
 </main>
 
