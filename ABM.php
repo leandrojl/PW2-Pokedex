@@ -14,13 +14,14 @@ if (!isset($_SESSION["logueado"])) {
     exit();
 }
 
+$db = new Database();
+$pokemonManager = new PokemonManager($db);
+
 if (isset($_POST['accion'])) {
     $accion = $_POST['accion'];
     $nombre = $_POST['nombre'];
     $tipo_id = intval($_POST['tipo_id']);
     $rutaImagen = null;
-    $extensionArchivo = "";
-    $numeroTotalDePokemones = 0;
 
     // Verifico que el campo de archivo se envió y  verifico que no hubo errores en el proceso de carga del archivo
     if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
@@ -33,6 +34,11 @@ if (isset($_POST['accion'])) {
         // Si se sube un archivo que no sea png, me da error
         $extensionArchivo = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
 
+        if (strtolower($extensionArchivo) !== 'png') {
+            echo "Formato de imagen no permitido. Solo se permiten archivos PNG";
+            exit();
+        }
+
 
         // Limito el tamaño del archivo a 2mb
         if ($tamanioArchivo > 2097152) {
@@ -41,18 +47,14 @@ if (isset($_POST['accion'])) {
         }
 
         $carpetaDestino = 'imagenes/';
-        $nombreImagen = $_POST["nombre"]; // Hago que el nombre de la imagen sea igual al nombre del pokemon, para despues mostrarlo bien en la vista principal
+        $nombreImagen = $nombre; // Hago que el nombre de la imagen sea igual al nombre del pokemon, para despues mostrarlo bien en la vista principal
         $rutaImagen = $carpetaDestino . $nombreImagen . '.' . $extensionArchivo;
 
         // Mover el archivo desde su ubicación temporal a la carpeta de destino
         if (!move_uploaded_file($archivoTemporal, $rutaImagen)) {
             echo "Error al subir la imagen.";
             exit();
-        }else{
-            $numeroTotalDePokemones = $pokemonManager->obtenerNumeroTotalDePokemones();
-            rename($rutaImagen, "./imagenes/" . $numeroTotalDePokemones . "." . $extensionArchivo); //cambio el nombre de la img de pikachu a 3 (de nombre a id)
         }
-
     } else { // Si no se sube una imagen, se mantiene la imagen existente
         $rutaImagen = null;
         if ($accion === 'modificar') {
@@ -65,9 +67,16 @@ if (isset($_POST['accion'])) {
     if ($accion === 'agregar') {
         // Me aseguro que $rutaImagen contiene la ruta de la imagen subida
         if ($rutaImagen !== null) {
-            $pokemonManager->agregarPokemon($nombre, $tipo_id, "imagenes/" . $numeroTotalDePokemones . "." . $extensionArchivo);
-            header("Location: perfilAdmin.php");
-            exit();
+            $pokemones = $pokemonManager->buscarPokemonPorNroIdUnico($_POST["nro_id_unico"]); //validar que no se agregue un pokemon con mismo nro_id_unico
+            if($pokemones->num_rows === 0){
+                $pokemonManager->agregarPokemon($nombre, $tipo_id, $rutaImagen);
+                header("Location: perfilAdmin.php");
+                exit();
+            }else{
+                echo "Error: nro_id_unico existente.";
+                exit();
+            }
+
         } else {
             echo "Error: no se subio ninguna imagen.";
             exit();
@@ -84,7 +93,6 @@ if (isset($_POST['accion'])) {
             $pokemonExistente = $pokemonManager->obtenerPokemonPorId($id);
             $rutaImagen = $pokemonExistente['imagen'];
         }
-
         // Si se cargó la imagen, la cambia
         $pokemonManager->modificarPokemon($id, $nombre, $tipo_id, $descripcion, $rutaImagen);
         header("Location: perfilAdmin.php");

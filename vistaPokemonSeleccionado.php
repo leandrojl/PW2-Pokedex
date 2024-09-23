@@ -6,9 +6,8 @@ if (isset($_GET['page'])) {
 
 $database = new Database(); //en esta instancia creo la conexion a la base de datos
 
-$query = "SELECT       pokemon.nro_id_unico, 
+$query = "SELECT       pokemon.nro_id_unico, pokemon.imagen,
                        pokemon.nombre,
-                       pokemon.id,
                        pokemon.descripcion AS pokemon_descripcion,
                        tipo.imagen AS tipo_img, 
                        tipo.descripcion AS tipo_descripcion
@@ -28,31 +27,29 @@ $resultado = $database->query($query);
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Pokedex</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-</head>
-<body>
-<?php
 
-// Verificar si el usuario está logueado
-if (!isset($_SESSION["logueado"])) {
-    // Si no está logueado le muestro el header de login
+    <link rel="shortcut icon" href="img/Pokebola.png">
+    <title>Pokedex</title>
+</head>
+<header>
+
+    <?php
+
 
     include './header.php';
-}else{
-    //si esta logeado, le muestro el header para salir
 
-    echo '<header>
-            <div class="logo"><img src="imagenes/pokedex-removebg-preview.png"></div>
-            <div class="titulo"><img src="imagenes/pokedex-titulo.png"></div>
-            <div class="login">
-                <p>Usuario Administrador</p>
-                <input type="button" value="Salir" onclick="window.location.href=\'logout.php\'">
-            </div>
-        </header>';
-}
 
+    ?>
+</header>
+<body>
+<?php
+include './barraBuscadora.php'
 ?>
+
+
 
 <?php foreach ($resultado as $pokemon){
 
@@ -66,7 +63,7 @@ if (!isset($_SESSION["logueado"])) {
 
     echo '<div class="w3-row-padding w3-margin">
                     <div class="w3-col l6 m6 s12">
-                        <img src="'.$database->buscarImagen($pokemon["id"]).'" alt="'.$nombre_pokemon.'" class="w3-image w3-round-large w3-card-4" style="width: 100%; max-width: 400px;">
+                        <img src="'.$database->buscarImagen($pokemon['imagen']).'" alt="'.$nombre_pokemon.'" class="w3-image w3-round-large w3-card-4" style="width: 100%; max-width: 400px;">
                     </div>
                     <div class="w3-col l6 m6 s12">
                         <div class="w3-container">

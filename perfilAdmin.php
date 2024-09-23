@@ -31,7 +31,7 @@ function obtenerRutaImagen($ruta) {
     // Si viene con/img lo elimina
     $rutaLimpia = str_replace('imagenes/', '', $ruta);
 
-    return 'imagenes/' . $rutaLimpia;
+    return 'img/' . $rutaLimpia;
 }
 
 $tipos = $pokemonManager->obtenerTipos();
@@ -43,33 +43,21 @@ $tipos = $pokemonManager->obtenerTipos();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="styles/style.css">
+ <!-- <link rel="stylesheet" href="styles/style.css">-->
     <link rel="shortcut icon" href="img/Pokebola.png">
     <title>Pokedex</title>
 </head>
-<body>
-<?php
 
-// Verificar si el usuario está logueado
-if (!isset($_SESSION["logueado"])) {
-    // Si no está logueado le muestro el header de login
+
+<header><?php
+
 
     include './header.php';
-}else{
-    //si esta logeado, le muestro el header para salir
 
-    echo '<header>
-            <div class="logo"><img src="imagenes/pokedex-removebg-preview.png"></div>
-            <div class="titulo"><img src="imagenes/pokedex-titulo.png"></div>
-            <div class="login">
-                <p>Usuario Administrador</p>
-                <input type="button" value="Salir" onclick="window.location.href=\'logout.php\'">
-            </div>
-        </header>';
-}
 
 ?>
-
+</header>
+<body>
 <main>
     <div class="w3-container">
         <h2 class="w3-center">Agregar Nuevo Pokémon</h2>
@@ -77,7 +65,15 @@ if (!isset($_SESSION["logueado"])) {
             <div class="w3-row-padding">
                 <div class="w3-half">
                     <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" class="w3-input w3-border">
+                    <input type="text" id="nombre" name="nombre" class="w3-input w3-border" placeholder="Nombre del pokemon">
+                </div>
+                <div class="w3-half">
+                    <label for="descripcion">Descripcion:</label>
+                    <textarea name="descripcion" id="descripcion" class="w3-input w3-border" placeholder="Breve descripcion"></textarea>
+                </div>
+                <div class="w3-half">
+                    <label for="nro_id_unico">Id unico:</label>
+                    <input type="number" name="nro_id_unico" id="nro_id_unico" class="w3-input w3-border" placeholder="ID del pokemon">
                 </div>
                 <div class="w3-half">
                     <label for="tipo_id">Tipo:</label>
@@ -99,10 +95,10 @@ if (!isset($_SESSION["logueado"])) {
             <button type="submit" class="w3-button w3-teal">Agregar Pokémon</button>
         </form>
     </div>
-    <form class="buscador" action="" method="get">
-        <input type="text" name="query" placeholder="Ingrese el nombre, tipo o número de pokemon" required>
-        <input type="submit" value="¿Quién es este pokemon?">
-    </form>
+
+    <?php
+    include './barraBuscadora.php'
+    ?>
 
     <div class="w3-container">
         <h2 class="w3-center">Lista de Pokémon</h2>
@@ -122,7 +118,7 @@ if (!isset($_SESSION["logueado"])) {
             <?php foreach ($resultado as $pokemon): ?>
                 <tr>
                     <td>
-                         <img src="<?php echo $db->buscarImagen($pokemon['id'])?>"
+                         <img src="<?php echo $db->buscarImagen($pokemon['imagen'])?>"
                                alt="<?php echo htmlspecialchars($pokemon['nombre']); ?>"
                                class="w3-image"
                                style="width:100px;">
