@@ -47,7 +47,7 @@ if (isset($_POST['accion'])) {
         }
 
         $carpetaDestino = 'imagenes/';
-        $nombreImagen = $nombre; // Hago que el nombre de la imagen sea igual al nombre del pokemon, para despues mostrarlo bien en la vista principal
+        $nombreImagen = pathinfo($_FILES["imagen"]["name"],PATHINFO_FILENAME); // Hago que el nombre de la imagen sea igual al nombre del pokemon, para despues mostrarlo bien en la vista principal
         $rutaImagen = $carpetaDestino . $nombreImagen . '.' . $extensionArchivo;
 
         // Mover el archivo desde su ubicación temporal a la carpeta de destino
@@ -70,6 +70,7 @@ if (isset($_POST['accion'])) {
             $pokemones = $pokemonManager->buscarPokemonPorNroIdUnico($_POST["nro_id_unico"]); //validar que no se agregue un pokemon con mismo nro_id_unico
             if($pokemones->num_rows === 0){
                 $pokemonManager->agregarPokemon($nombre, $tipo_id, pathinfo($_FILES["imagen"]["name"],PATHINFO_FILENAME),$_POST["nro_id_unico"],$_POST["descripcion"]);
+
                 header("Location: perfilAdmin.php");
                 exit();
             }else{
