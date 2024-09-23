@@ -31,13 +31,13 @@ class PokemonManager {
     }
 
 
-    public function agregarPokemon($nombre, $tipo_id, $imagen) {
+    public function agregarPokemon($nombre, $tipo_id, $imagen,$nro_id_unico, $descripcion) {
 
-        $sqlQuery = "INSERT INTO pokemon (nombre, tipo_id, imagen) VALUES (?, ?, ?)";
+        $sqlQuery = "INSERT INTO pokemon (nombre, tipo_id, imagen,nro_id_unico,descripcion) VALUES (?, ?, ?,?,?)";
 
         $stmt = $this->db->conexion->prepare($sqlQuery);
-        // En este caso sis es string, int, string
-        $stmt->bind_param('sis', $nombre, $tipo_id, $imagen);
+
+        $stmt->bind_param('sisis', $nombre, $tipo_id, $imagen, $nro_id_unico, $descripcion);
         $stmt->execute();
         $stmt->close();
     }
