@@ -4,7 +4,7 @@
     <option name="dataSources">
       <list>
         <State>
-          <option name="id" value="090f1cda-4ea3-4892-8fe6-868980f6ff32" />
+          <option name="id" value="22c9877a-c682-4089-8af3-20560d576a41" />
           <option name="name" value="DDL data source" />
           <option name="dbmsName" value="MYSQL" />
           <option name="urls">
