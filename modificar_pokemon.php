@@ -43,10 +43,11 @@ include './barraBuscadora.php'
 <main>
     <div class="w3-container">
         <h2 class="w3-center">Modificar Pokémon</h2>
-        <form action="ABM.php" method="POST">
+        <form action="ABM.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?php echo htmlspecialchars($pokemon['id']); ?>">
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" value="<?php echo htmlspecialchars($pokemon['nombre']); ?>" required>
+
             <label for="tipo_id">Tipo:</label>
             <select id="tipo_id" name="tipo_id" required>
                 <?php foreach ($tipos as $tipo) { ?>
@@ -55,10 +56,15 @@ include './barraBuscadora.php'
                     </option>
                 <?php } ?>
             </select>
+
             <label for="descripcion">Descripción:</label>
             <textarea id="descripcion" name="descripcion" required><?php echo htmlspecialchars($pokemon['descripcion']); ?></textarea>
+
             <label for="imagen">Imagen:</label>
-            <input type="text" id="imagen" name="imagen" value="<?php echo htmlspecialchars($pokemon['imagen']); ?>" required>
+
+
+            <label for="imagen">Imagen (archivo):</label>
+            <input type="file" id="imagen" name="imagen"  accept="image/*" class="w3-input w3-border">
             <input type="hidden" name="accion" value="modificar">
             <button type="submit" class="w3-button w3-green">Modificar Pokémon</button>
         </form>

@@ -23,8 +23,18 @@ if (isset($_POST['accion'])) {
     $tipo_id = intval($_POST['tipo_id']);
     $rutaImagen = null;
 
+    //var_dump(pathinfo($_FILES["imagen"]["name"],PATHINFO_FILENAME));
+    var_dump($accion);
+    var_dump($nombre);
+    var_dump($tipo_id);
+    var_dump(isset($_FILES['imagen']));
+    var_dump("ESTE ES FILES IMAGEN NAME",$_FILES["imagen"]["name"]);
+    var_dump(pathinfo($_FILES["imagen"]["name"],PATHINFO_FILENAME));
+
+
     // Verifico que el campo de archivo se envió y  verifico que no hubo errores en el proceso de carga del archivo
     if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+
         $nombreArchivo = $_FILES['imagen']['name'];
         $tipoArchivo = $_FILES['imagen']['type'];
         $tamanioArchivo = $_FILES['imagen']['size'];
@@ -48,6 +58,7 @@ if (isset($_POST['accion'])) {
 
         $carpetaDestino = 'imagenes/';
         $nombreImagen = pathinfo($_FILES["imagen"]["name"],PATHINFO_FILENAME); // Hago que el nombre de la imagen sea igual al nombre del pokemon, para despues mostrarlo bien en la vista principal
+
         $rutaImagen = $carpetaDestino . $nombreImagen . '.' . $extensionArchivo;
 
         // Mover el archivo desde su ubicación temporal a la carpeta de destino
@@ -94,7 +105,9 @@ if (isset($_POST['accion'])) {
             $rutaImagen = $pokemonExistente['imagen'];
         }
         // Si se cargó la imagen, la cambia
-        $pokemonManager->modificarPokemon($id, $nombre, $tipo_id, $descripcion, $rutaImagen);
+        $pokemonManager->modificarPokemon($id, $nombre, $tipo_id, $descripcion, pathinfo($_FILES["imagen"]["name"],PATHINFO_FILENAME));
+
+
         header("Location: perfilAdmin.php");
         exit();
     }
