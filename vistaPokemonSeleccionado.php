@@ -31,6 +31,7 @@ $resultado = $database->query($query);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="estilos/estilos.css">
+    <link rel="stylesheet" href="estilos/estilos_pokemon_seleccionado.css">
     <link rel="shortcut icon" href="imagenes/Pokebola.png">
     <title>Pokedex</title>
 </head>
@@ -45,9 +46,6 @@ $resultado = $database->query($query);
     ?>
 </header>
 <body>
-<?php
-include './barraBuscadora.php'
-?>
 
 
 
@@ -61,13 +59,13 @@ include './barraBuscadora.php'
 
     $pokemon_descripcion = $pokemon['pokemon_descripcion']; //guardo la descripcion del pokemon
 
-    echo '<div class="w3-row-padding w3-margin">
+    echo '<div class="w3-row-padding w3-margin contenedor-descipcion">
                     <div class="w3-col l6 m6 s12">
-                        <img src="'.$database->buscarImagen($pokemon['imagen']).'" alt="'.$nombre_pokemon.'" class="w3-image w3-round-large w3-card-4" style="width: 100%; max-width: 400px;">
+                        <img src="'.$database->buscarImagen($pokemon['imagen']).'" alt="'.$nombre_pokemon.'" class="w3-image w3-round-large w3-card-4 imagen_pokemon" style="width: 100%; max-width: 400px;">
                     </div>
                     <div class="w3-col l6 m6 s12">
                         <div class="w3-container">
-                            <img src="./imagenes/'.$tipo_pokemon.'.png" alt="Tipo'.$tipo_pokemon.'" class="w3-image w3-right w3-margin-bottom" style="width: 80px;">
+                            <img src="./imagenes/'.$tipo_pokemon.'.png" alt="Tipo'.$tipo_pokemon.'" class="w3-image w3-right w3-margin-bottom imagen_tipo"  style="width: 80px;">
                             <h2 class="w3-text-blue w3-large w3-margin-top">'.$nombre_pokemon.'</h2>
                             <p>Número de Pokémon: '.$nro_id_unico.'</p>
                             <p>Descripción del Pokémon: '.$pokemon_descripcion.'</p>
@@ -85,13 +83,6 @@ include './barraBuscadora.php'
 
 
 
-
-
-
-
-
-</body>
-</html>
 
 
 
