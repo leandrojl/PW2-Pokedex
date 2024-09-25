@@ -6,17 +6,17 @@ var nuevoBtn = document.getElementById("nuevoBtn");
 var closeBtn = document.getElementsByClassName("close")[0];
 
 // Cuando se haga clic en el botón "Nuevo", se muestra el popup
-nuevoBtn.onclick = function() {
+nuevoBtn.onclick = function () {
     popup.style.display = "block";
 }
 
 // Cuando se haga clic en la "X", se cierra el popup
-closeBtn.onclick = function() {
+closeBtn.onclick = function () {
     popup.style.display = "none";
 }
 
 // Cuando se hace clic fuera del contenido del popup, se cierra
-window.onclick = function(event) {
+window.onclick = function (event) {
     if (event.target == popup) {
         popup.style.display = "none";
     }
@@ -29,13 +29,13 @@ var inputArchivo = document.getElementById('archivo');
 var previewImg = document.getElementById('previewImg');
 
 // Escuchar el cambio en el input de archivo
-inputArchivo.addEventListener('change', function(event) {
+inputArchivo.addEventListener('change', function (event) {
     var archivo = event.target.files[0];
 
     // Si hay un archivo seleccionado y es una imagen, mostrar la vista previa
     if (archivo && archivo.type.startsWith('image/')) {
         var lector = new FileReader();
-        lector.onload = function(e) {
+        lector.onload = function (e) {
             previewImg.src = e.target.result;
             previewImg.style.display = 'block';
         }
@@ -44,3 +44,13 @@ inputArchivo.addEventListener('change', function(event) {
         previewImg.style.display = 'none'; // Ocultar la vista previa si no es una imagen
     }
 });
+
+//////////////////////////////////////////////
+function updateDisplay() {
+    const isMobile = window.innerWidth <= 768;
+    document.getElementById('pokemonTable').style.display = isMobile ? 'none' : 'block';
+    document.getElementById('pokemonCards').style.display = isMobile ? 'block' : 'none';
+}
+
+window.addEventListener('resize', updateDisplay);
+window.addEventListener('load', updateDisplay);

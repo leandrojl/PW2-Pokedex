@@ -91,6 +91,3 @@ include './barraBuscadora.php'
 </body>
 </html>
 
-
-</body>
-</html>

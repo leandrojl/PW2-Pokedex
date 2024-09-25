@@ -101,58 +101,92 @@ $tipos = $pokemonManager->obtenerTipos();
     include './barraBuscadora.php'
     ?>
 
-
-
     <div class="w3-container">
         <h2 class="w3-center">Lista de Pokémon</h2>
-        <table class="w3-table w3-bordered w3-striped w3-hoverable">
-            <thead>
-            <tr class="w3-light-grey">
-                <th>Imagen</th>
-                <th>Tipo</th>
-                <th>Número</th>
-                <th>Nombre</th>
-                <th>Descripcion</th>
-                <th>Ver Pokémon</th>
-                <th>Acciones</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($resultado as $pokemon): ?>
-                <tr>
-                    <td>
-                         <img src="<?php echo $db->buscarImagen($pokemon['imagen'])?>"
-                               alt="<?php echo htmlspecialchars($pokemon['nombre']); ?>"
-                               class="w3-image"
-                               style="width:100px;">
-                    </td>
 
-
-                    <td><img src="imagenes/<?php echo $pokemon['tipo']; ?>.png" alt="Tipo <?php echo $pokemon['tipo']; ?>" class="w3-image" style="width:100px;"></td>
-                    <td>#<?php echo $pokemon['id']; ?></td>
-                    <td><?php echo $pokemon['nombre']; ?></td>
-                    <td><?php echo $pokemon['descripcion']; ?></td>
-                    <td><button class="w3-button w3-blue" onclick="window.location.href='vistaPokemonSeleccionado.php?page=<?php echo $pokemon['nombre'] ?>&id=<?php echo $pokemon['id']; ?>'">Ver a <?php echo $pokemon['nombre']; ?></button></td>
-                    <td>
-                        <form action="modificar_pokemon.php" method="GET">
-                            <input type="hidden" name="id" value="<?php echo $pokemon['id']; ?>">
-                            <button type="submit" class="w3-button w3-green">Modificar</button>
-                        </form>
-                        <form action="ABM.php" method="POST">
-                            <input type="hidden" name="id" value="<?php echo $pokemon['id']; ?>">
-                            <input type="hidden" name="accion" value="baja">
-                            <button type="submit" class="w3-button w3-red">Baja</button>
-                        </form>
-                    </td>
-
+        <!-- Tabla para pantallas grandes -->
+        <div class="w3-table-responsive" id="pokemonTable">
+            <table class="w3-table w3-bordered w3-striped w3-hoverable">
+                <thead>
+                <tr class="w3-light-grey">
+                    <th>Imagen</th>
+                    <th>Tipo</th>
+                    <th>Número</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Ver Pokémon</th>
+                    <th>Acciones</th>
                 </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($resultado as $pokemon): ?>
+                    <tr>
+                        <td><img src="<?php echo $db->buscarImagen($pokemon['imagen'])?>" alt="<?php echo htmlspecialchars($pokemon['nombre']); ?>" style="width:100px;"></td>
+                        <td><img src="imagenes/<?php echo $pokemon['tipo']; ?>.png" alt="Tipo <?php echo $pokemon['tipo']; ?>" style="width:100px;"></td>
+                        <td>#<?php echo $pokemon['id']; ?></td>
+                        <td><?php echo $pokemon['nombre']; ?></td>
+                        <td><?php echo $pokemon['descripcion']; ?></td>
+                        <td>
+                            <button class="w3-button w3-blue" onclick="window.location.href='vistaPokemonSeleccionado.php?page=<?php echo $pokemon['nombre'] ?>&id=<?php echo $pokemon['id']; ?>'">Ver a <?php echo $pokemon['nombre']; ?></button>
+                        </td>
+                        <td>
+                            <form action="modificar_pokemon.php" method="GET" style="display:inline;">
+                                <input type="hidden" name="id" value="<?php echo $pokemon['id']; ?>">
+                                <button type="submit" class="w3-button w3-green">Modificar</button>
+                            </form>
+                            <form action="ABM.php" method="POST" style="display:inline;">
+                                <input type="hidden" name="id" value="<?php echo $pokemon['id']; ?>">
+                                <input type="hidden" name="accion" value="baja">
+                                <button type="submit" class="w3-button w3-red">Baja</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Tarjetas para pantallas pequeñas -->
+        <div class="w3-row-padding" id="pokemonCards" style="display: none;">
+            <?php foreach ($resultado as $pokemon): ?>
+                <div class="w3-col s12 m6 l4">
+                    <div class="w3-card-4 w3-margin-bottom pokemon-card">
+                        <header class="w3-container w3-light-grey">
+                            <h3><?php echo $pokemon['nombre']; ?> (#<?php echo $pokemon['id']; ?>)</h3>
+                        </header>
+                        <div class="w3-container">
+                            <img src="<?php echo $db->buscarImagen($pokemon['imagen'])?>" alt="<?php echo htmlspecialchars($pokemon['nombre']); ?>" style="width:100px;">
+                            <p><strong>Tipo:</strong> <img src="imagenes/<?php echo $pokemon['tipo']; ?>.png" alt="Tipo <?php echo $pokemon['tipo']; ?>" style="width:30px;"></p>
+                            <p><strong>Descripción:</strong> <?php echo $pokemon['descripcion']; ?></p>
+                        </div>
+                        <footer class="w3-container w3-light-grey actions">
+                            <button class="w3-button w3-blue" onclick="window.location.href='vistaPokemonSeleccionado.php?page=<?php echo $pokemon['nombre'] ?>&id=<?php echo $pokemon['id']; ?>'">Ver a <?php echo $pokemon['nombre']; ?></button>
+                            <form action="modificar_pokemon.php" method="GET" style="display:inline;">
+                                <input type="hidden" name="id" value="<?php echo $pokemon['id']; ?>">
+                                <button type="submit" class="w3-button w3-green">Modificar</button>
+                            </form>
+                            <form action="ABM.php" method="POST" style="display:inline;">
+                                <input type="hidden" name="id" value="<?php echo $pokemon['id']; ?>">
+                                <input type="hidden" name="accion" value="baja">
+                                <button type="submit" class="w3-button w3-red">Baja</button>
+                            </form>
+                        </footer>
+                    </div>
+                </div>
             <?php endforeach; ?>
-            </tbody>
-        </table>
-
-
+        </div>
     </div>
+
 </main>
-<script src="./JS/script.js"></script>
+<script>
+    function updateDisplay() {
+        const isMobile = window.innerWidth <= 768;
+        document.getElementById('pokemonTable').style.display = isMobile ? 'none' : 'block';
+        document.getElementById('pokemonCards').style.display = isMobile ? 'block' : 'none';
+    }
+
+    window.addEventListener('resize', updateDisplay);
+    window.addEventListener('load', updateDisplay);
+</script>
 </body>
 </html>

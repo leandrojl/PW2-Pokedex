@@ -19,8 +19,14 @@ header {
 
 /*imagen del pokedex*/
 .logo img{
-    width: 8em;
+    width: 150px; /* Ajusta el tamaño según necesites */
+    transition: transform 0.3s ease; /* Suaviza la animación */
 }
+
+.logo img:hover {
+    transform: scale(1.1); /* Aumenta el tamaño al pasar el mouse */
+}
+
 
 /*Titulo Pokedex*/
 .titulo img{
@@ -129,21 +135,17 @@ form.buscador input[type="submit"]:hover {
     color: white;
     border: none;
     cursor: pointer;
-
 }
 
 
 /* contenido de agregar*/
 .contenedor-agregar {
     background-color: white;
-
     padding: 20px;
     border: 2px solid rgba(0, 0, 0, 0.2);
-
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Efecto de sombra */
 }
-
 
 
 /*imagen para cargar*/
@@ -194,7 +196,7 @@ td{
     text-align: center !important;
 }
 
-/**Vista de pokemon seleccionado**/
+
 
 
 
@@ -297,3 +299,21 @@ td{
         padding: 10px 0;
     }
 }
+
+/*********************  RESPONSIVE TABLA **************************/
+@media only screen and (max-width: 768px) {
+    .w3-table-responsive {
+        display: none; /* Oculta la tabla en pantallas pequeñas */
+    }
+    .pokemon-card {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 16px;
+        margin: 1em 0;
+        background-color: #f9f9f9;
+    }
+}
+
+
