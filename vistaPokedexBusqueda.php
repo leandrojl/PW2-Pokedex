@@ -11,6 +11,8 @@ include 'database.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="estilos/estilos.css">
+    <link rel="shortcut icon" href="imagenes/Pokebola.png">
 
 </head>
 <header>
@@ -26,7 +28,7 @@ include './barraBuscadora.php'
 
 
 <div class="w3-container">
-    <h2 class="w3-center">Lista de Pokémon traido de la BD</h2>
+    <h2 class="w3-center">Lista de Pokémon</h2>
 
     <?php
     $database = new Database();

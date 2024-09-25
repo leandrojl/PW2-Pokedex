@@ -6,7 +6,7 @@ body {
     margin: 0;
     padding: 0;
 }
-
+/**************** HEADER ************************/
 header {
     background-color: #4CAF50;
     padding: 20px;
@@ -19,7 +19,7 @@ header {
 
 /*imagen del pokedex*/
 .logo img{
-   width: 8em;
+    width: 8em;
 }
 
 /*Titulo Pokedex*/
@@ -68,9 +68,15 @@ header .login input[type="button"]:hover {
     color: white;
 }
 
+/*************************** MAIN ********************************/
 
 main {
     padding: 20px;
+}
+
+h2{
+    font-weight: bold;
+    margin:25px;
 }
 
 /*Buscador*/
@@ -115,73 +121,42 @@ form.buscador input[type="submit"]:hover {
 
 /* botón de nuevo */
 #nuevoBtn {
+    margin: 20px;
     padding: 10px 20px;
     background-color: #28a745;
     color: white;
     border: none;
     cursor: pointer;
+    width: 20%;
 }
 
-/* popup */
-.popup {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%; /* Asegura que ocupe toda la altura de la ventana */
-    background-color: rgba(0, 0, 0, 0.6);
-    z-index: 9999;
-    overflow-y: auto; /* Permite el scroll vertical si el contenido es demasiado grande */
-    padding: 20px; /* Añade espacio para que el contenido no toque el borde */
-}
 
-/* contenido del popup */
-.popup-content {
+
+/* contenido de agregar*/
+.contenedor-agregar {
     background-color: white;
-    margin: 15% auto;
+
     padding: 20px;
-    border: 1px solid #888;
-    width: 30%;
+    border: 2px solid #423f3f;
+
     border-radius: 5px;
-}
-
-/* botón de cerrar popup*/
-.close {
-    color: #4CAF50;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    padding: 10px 15px;
-    background-color: white;
-    border: none;
-}
-
-
-.close:hover,
-.close:focus {
-    text-decoration: none;
-    cursor: pointer;
-    background-color: #d83e49;
-    color: white;
 }
 
 
 
 /*formulario de carga*/
 
-#nuevoForm {
+
+
+/*#nuevoForm {
     display: flex;
     flex-direction: column;
     row-gap: 10px;
-}
+}*/
 
-#nuevoForm label {
+/*#nuevoForm label {
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-top: 15px;
     color: #333;
 }
 
@@ -197,7 +172,7 @@ form.buscador input[type="submit"]:hover {
     padding: 5px;
     border: 2px solid #4CAF50;
     border-radius: 5px;
-}
+}*/
 
 /*imagen para cargar*/
 #previewImg{
@@ -208,12 +183,12 @@ form.buscador input[type="submit"]:hover {
 
 
 /*Tipos*/
-select{
+/*select{
     padding: 5px;
     border: 2px solid #4CAF50;
     border-radius: 5px;
 
-}
+}*/
 
 /*descripcion del pokemon*/
 
@@ -221,11 +196,11 @@ textarea{
     padding: 5px;
     border: 2px solid #4CAF50;
     border-radius: 5px;
-    height: 150px;
+    height: 100px;
 }
 
 /*boton para cargar el nuevo pokemon*/
-.cargar{
+/*.cargar{
     color: #4CAF50;
     text-align: center;
     font-size: 15px;
@@ -244,3 +219,108 @@ textarea{
     cursor: pointer;
     background-color: #4b58da;
     color: white;}
+*/
+/****TABLA****/
+th{
+    background-color: #2196F3;
+    text-align: center !important;
+
+}
+
+td{
+    text-align: center !important;
+}
+
+/**********RESPONSIVE HEADER************************/
+/* Media Query para pantallas menores a 768px (tablets y teléfonos) */
+@media only screen and (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .logo img {
+        width: 6em;
+    }
+
+    .titulo img {
+        width: 12em;
+    }
+
+    header .login {
+
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    header .login input[type="text"],
+    header .login input[type="password"] {
+        width: 70%;
+        margin-bottom: 10px;
+    }
+
+    header .login input[type="submit"],
+    header .login input[type="button"] {
+        width: 25%;
+    }
+}
+
+/* Media Query para pantallas menores a 480px (teléfonos pequeños) */
+@media only screen and (max-width: 480px) {
+    header {
+        padding: 5px;
+    }
+
+    .logo img {
+        width: 4em;
+    }
+
+    .titulo img {
+        width: 10em;
+    }
+
+    header .login input[type="text"],
+    header .login input[type="password"],
+    header .login input[type="submit"],
+    header .login input[type="button"] {
+        padding: 8px;
+    }
+}
+
+/**********RESPONSIVE BUSCADOR************************/
+/* Media Query para pantallas menores a 768px (tablets y teléfonos) */
+@media only screen and (max-width: 768px) {
+    form.buscador {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    form.buscador input[type="text"] {
+        width: 80%;
+        border-radius: 25px;
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+
+    form.buscador input[type="submit"] {
+        width: 50%;
+        border-radius: 25px;
+        padding: 12px 0;
+        font-size: 16px;
+    }
+}
+
+/* Media Query para pantallas menores a 480px (teléfonos pequeños) */
+@media only screen and (max-width: 480px) {
+    form.buscador input[type="text"] {
+        width: 80%;
+        font-size: 14px;
+    }
+
+    form.buscador input[type="submit"] {
+        width: 50%;
+        font-size: 14px;
+        padding: 10px 0;
+    }
+}

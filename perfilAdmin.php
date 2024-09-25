@@ -43,8 +43,8 @@ $tipos = $pokemonManager->obtenerTipos();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
- <!-- <link rel="stylesheet" href="styles/style.css">-->
-    <link rel="shortcut icon" href="img/Pokebola.png">
+    <link rel="stylesheet" href="estilos/estilos.css">
+    <link rel="shortcut icon" href="imagenes/Pokebola.png">
     <title>Pokedex</title>
 </head>
 
@@ -59,18 +59,15 @@ $tipos = $pokemonManager->obtenerTipos();
 </header>
 <body>
 <main>
-    <div class="w3-container">
+    <div class="w3-container contenedor-agregar">
         <h2 class="w3-center">Agregar Nuevo Pokémon</h2>
-        <form action="ABM.php" method="POST"  enctype="multipart/form-data" class="w3-form">
+        <form action="ABM.php" method="POST"  enctype="multipart/form-data" class="w3-form" id="nuevoForm">
             <div class="w3-row-padding">
                 <div class="w3-half">
                     <label for="nombre">Nombre:</label>
                     <input type="text" id="nombre" name="nombre" class="w3-input w3-border" placeholder="Nombre del pokemon">
                 </div>
-                <div class="w3-half">
-                    <label for="descripcion">Descripcion:</label>
-                    <textarea name="descripcion" id="descripcion" class="w3-input w3-border" placeholder="Breve descripcion"></textarea>
-                </div>
+
                 <div class="w3-half">
                     <label for="nro_id_unico">Id unico:</label>
                     <input type="number" name="nro_id_unico" id="nro_id_unico" class="w3-input w3-border" placeholder="ID del pokemon">
@@ -84,6 +81,10 @@ $tipos = $pokemonManager->obtenerTipos();
                         <?php endforeach; ?>
                     </select>
                 </div>
+                <div class="w3-half">
+                    <label for="descripcion">Descripcion:</label>
+                    <textarea name="descripcion" id="descripcion" class="w3-input w3-border" placeholder="Breve descripcion"></textarea>
+                </div>
             </div>
             <div class="w3-row-padding">
                 <div class="w3-half">
@@ -92,13 +93,15 @@ $tipos = $pokemonManager->obtenerTipos();
                 </div>
             </div>
             <input type="hidden" name="accion" value="agregar">
-            <button type="submit" class="w3-button w3-teal">Agregar Pokémon</button>
+            <button type="submit" id="nuevoBtn">Agregar Pokémon</button>
         </form>
     </div>
 
     <?php
     include './barraBuscadora.php'
     ?>
+
+
 
     <div class="w3-container">
         <h2 class="w3-center">Lista de Pokémon</h2>
@@ -150,5 +153,6 @@ $tipos = $pokemonManager->obtenerTipos();
 
     </div>
 </main>
+<script src="./JS/script.js"></script>
 </body>
 </html>
