@@ -24,7 +24,7 @@ if (!isset($_SESSION["logueado"])) {
     <div class="titulo"><img src="imagenes/pokedex-titulo.png"></div>
     <div class="login">
         <p>Usuario Administrador</p>
-        <input type="button" value="Salir" onclick="window.location.href=\'logout.php\'">
+        <input type="button" id="salir" value="Salir" onclick="window.location.href=\'logout.php\'">
     </div>
 ';
 }

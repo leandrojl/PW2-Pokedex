@@ -68,6 +68,8 @@ header .login input[type="button"]:hover {
     color: white;
 }
 
+
+
 /*************************** MAIN ********************************/
 
 main {
@@ -147,33 +149,6 @@ form.buscador input[type="submit"]:hover {
 /*formulario de carga*/
 
 
-
-/*#nuevoForm {
-    display: flex;
-    flex-direction: column;
-    row-gap: 10px;
-}*/
-
-/*#nuevoForm label {
-    font-weight: bold;
-    margin-top: 15px;
-    color: #333;
-}
-
-
-#nuevoForm input[type="number"]{
-    padding: 5px;
-    border: 2px solid #4CAF50;
-    border-radius: 5px;
-
-}
-
-#nuevoForm input[type="text"]{
-    padding: 5px;
-    border: 2px solid #4CAF50;
-    border-radius: 5px;
-}*/
-
 /*imagen para cargar*/
 #previewImg{
     display:none;
@@ -182,44 +157,35 @@ form.buscador input[type="submit"]:hover {
 }
 
 
-/*Tipos*/
-/*select{
+select{
+    margin-top:5px;
+    margin-bottom: 10px;
     padding: 5px;
-    border: 2px solid #4CAF50;
     border-radius: 5px;
 
-}*/
+}
 
-/*descripcion del pokemon*/
 
 textarea{
+    margin-top:5px;
     padding: 5px;
-    border: 2px solid #4CAF50;
     border-radius: 5px;
     height: 100px;
 }
 
-/*boton para cargar el nuevo pokemon*/
-/*.cargar{
-    color: #4CAF50;
-    text-align: center;
-    font-size: 15px;
-    font-weight: bold;
+input{
+    margin-top:5px;
+    margin-bottom: 10px;
+    padding: 5px;
     border-radius: 5px;
-    border: #4CAF50 1px solid;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    padding: 10px 15px;
-    background-color: white;
 
 }
 
-.cargar:hover{
-    text-decoration: none;
-    cursor: pointer;
-    background-color: #4b58da;
-    color: white;}
-*/
+label{
+    font-weight: bold;
+}
+
+
 /****TABLA****/
 th{
     background-color: #2196F3;
@@ -315,7 +281,7 @@ td{
 @media only screen and (max-width: 480px) {
     form.buscador input[type="text"] {
         width: 80%;
-        font-size: 14px;
+        font-size: 12px;
     }
 
     form.buscador input[type="submit"] {
