@@ -185,7 +185,7 @@ label{
 }
 
 
-/****TABLA****/
+/****TABLAS****/
 th{
     background-color: #2196F3;
     text-align: center !important;
@@ -300,20 +300,5 @@ td{
     }
 }
 
-/*********************  RESPONSIVE TABLA **************************/
-@media only screen and (max-width: 768px) {
-    .w3-table-responsive {
-        display: none; /* Oculta la tabla en pantallas pequeñas */
-    }
-    .pokemon-card {
-        display: flex;
-        flex-direction: column;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        padding: 16px;
-        margin: 1em 0;
-        background-color: #f9f9f9;
-    }
-}
 
 
