@@ -62,21 +62,26 @@ include 'database.php';
     </div>
 
     <!-- Contenedor de tarjetas (visible en móviles) -->
-    <div class="card-container">
+    <div class="w3-row-padding">
         <?php foreach ($resultado as $pokemon) {
             $nombre_pokemon = $pokemon['nombre'];
             $tipo_pokemon = $pokemon['tipo_descripcion'];
             $nro_id_unico = $pokemon['nro_id_unico'];
 
-            echo '<div class="card">
-                    <img src="' . $database->buscarImagen($pokemon['imagen']) . '" alt="' . $nombre_pokemon . '">
-                    <img src="./imagenes/' . $tipo_pokemon . '.png" alt="Tipo ' . $tipo_pokemon . '" style="width: 60px;">
-                    <h3>' . $nombre_pokemon . '</h3>
-                    <p>Número: ' . $nro_id_unico . '</p>
-                    <button class="w3-button w3-blue" onclick="window.location.href=\'vistaPokemonSeleccionado.php?page=' . $nombre_pokemon . '\'">Ver a ' . $nombre_pokemon . '</button>
-                  </div>';
+            echo '<div class="w3-col l3 m6 s12">
+                <div class="w3-card-4 w3-margin">
+                    <img src="' . $database->buscarImagen($pokemon['imagen']) . '" alt="' . $nombre_pokemon . '" style="width:100%">
+                    <div class="w3-container">
+                        <img src="./imagenes/' . $tipo_pokemon . '.png" alt="Tipo ' . $tipo_pokemon . '" style="width: 40px;">
+                        <h3>' . $nombre_pokemon . '</h3>
+                        <p>Número: ' . $nro_id_unico . '</p>
+                        <button class="w3-button w3-blue" onclick="window.location.href=\'vistaPokemonSeleccionado.php?page=' . $nombre_pokemon . '\'">Ver a ' . $nombre_pokemon . '</button>
+                    </div>
+                </div>
+              </div>';
         } ?>
     </div>
+
 </div>
 
 </body>
