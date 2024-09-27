@@ -1,5 +1,5 @@
 /*********************  RESPONSIVE TABLA **************************/
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 600px) {
     .w3-table-responsive {
         display: none; /* Oculta la tabla en pantallas pequeñas */
     }

@@ -125,9 +125,9 @@ form.buscador input[type="submit"]:hover {
     background-color: #45a049;
 }
 
-/*Agregar un pokemon nuevo*/
+/**** Agregar un nuevo pokemon ****/
 
-/* botón de nuevo */
+/* botón de agregar nuevo */
 #nuevoBtn {
     margin: 20px;
     padding: 10px 20px;
@@ -136,7 +136,6 @@ form.buscador input[type="submit"]:hover {
     border: none;
     cursor: pointer;
 }
-
 
 /* contenido de agregar*/
 .contenedor-agregar {
@@ -183,19 +182,6 @@ input{
 label{
     font-weight: bold;
 }
-
-
-/****TABLAS****/
-th{
-    background-color: #2196F3;
-    text-align: center !important;
-
-}
-
-td{
-    text-align: center !important;
-}
-
 
 
 
@@ -299,6 +285,4 @@ td{
         padding: 10px 0;
     }
 }
-
-
 

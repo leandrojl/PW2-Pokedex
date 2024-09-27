@@ -148,7 +148,7 @@ $tipos = $pokemonManager->obtenerTipos();
         </div>
 
         <!-- Tarjetas para pantallas pequeñas -->
-        <div class="w3-row-padding" id="pokemonCards" style="display: none;">
+        <div class="w3-row-padding" id="pokemonCards">
             <?php foreach ($resultado as $pokemon): ?>
                 <div class="w3-col s12 m6 l4">
                     <div class="w3-card-4 w3-margin-bottom pokemon-card">
@@ -160,18 +160,7 @@ $tipos = $pokemonManager->obtenerTipos();
                             <p><strong>Tipo:</strong> <img src="imagenes/<?php echo $pokemon['tipo']; ?>.png" alt="Tipo <?php echo $pokemon['tipo']; ?>" style="width:30px;"></p>
                             <p><strong>Descripción:</strong> <?php echo $pokemon['descripcion']; ?></p>
                         </div>
-                        <footer class="w3-container w3-light-grey actions">
-                            <button class="w3-button w3-blue" onclick="window.location.href='vistaPokemonSeleccionado.php?page=<?php echo $pokemon['nombre'] ?>&id=<?php echo $pokemon['id']; ?>'">Ver a <?php echo $pokemon['nombre']; ?></button>
-                            <form action="modificar_pokemon.php" method="GET" style="display:inline;">
-                                <input type="hidden" name="id" value="<?php echo $pokemon['id']; ?>">
-                                <button type="submit" class="w3-button w3-green">Modificar</button>
-                            </form>
-                            <form action="ABM.php" method="POST" style="display:inline;">
-                                <input type="hidden" name="id" value="<?php echo $pokemon['id']; ?>">
-                                <input type="hidden" name="accion" value="baja">
-                                <button type="submit" class="w3-button w3-red">Baja</button>
-                            </form>
-                        </footer>
+
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -191,3 +180,16 @@ $tipos = $pokemonManager->obtenerTipos();
 </script>
 </body>
 </html>
+
+<footer class="w3-container w3-light-grey actions">
+    <button class="w3-button w3-blue" onclick="window.location.href='vistaPokemonSeleccionado.php?page=<?php echo $pokemon['nombre'] ?>&id=<?php echo $pokemon['id']; ?>'">Ver a <?php echo $pokemon['nombre']; ?></button>
+    <form action="modificar_pokemon.php" method="GET" style="display:inline;">
+        <input type="hidden" name="id" value="<?php echo $pokemon['id']; ?>">
+        <button type="submit" class="w3-button w3-green">Modificar</button>
+    </form>
+    <form action="ABM.php" method="POST" style="display:inline;">
+        <input type="hidden" name="id" value="<?php echo $pokemon['id']; ?>">
+        <input type="hidden" name="accion" value="baja">
+        <button type="submit" class="w3-button w3-red">Baja</button>
+    </form>
+</footer>

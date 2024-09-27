@@ -44,19 +44,40 @@ include 'database.php';
             </tr>
             </thead>
             <tbody>
+            <?php
+
+            ?>
             <?php foreach ($resultado as $pokemon) {
-                $nombre_pokemon = $pokemon['nombre'];
-                $tipo_pokemon = $pokemon['tipo_descripcion'];
-                $nro_id_unico = $pokemon['nro_id_unico'];
+
+                $nombre_pokemon = $pokemon['nombre']; //guardo el nombre del pokemon
+
+                $tipo_pokemon = $pokemon['tipo_descripcion']; //guardo el tipo de pokemon
+
+                $nro_id_unico = $pokemon['nro_id_unico']; //guardo su numero identificador unico
+
+                $pokemon_descripcion = $pokemon['pokemon_descripcion']; //guardo la descripcion del pokemon
+
 
                 echo '<tr>
+                        <!-- Mostrar la imagen del Pokémon -->
                         <td><img src="' . $database->buscarImagen($pokemon['imagen']) . '" alt="' . $nombre_pokemon . '" class="w3-image" style="width:100px;"></td>
+        
+                        <!-- Mostrar la imagen del tipo de Pokémon -->
                         <td><img src="./imagenes/' . $tipo_pokemon . '.png" alt="Tipo ' . $tipo_pokemon . '" class="w3-image" style="width:100px;"></td>
+        
+                        <!-- Mostrar el número del Pokémon -->
                         <td>' . $nro_id_unico . '</td>
+        
+                        <!-- Mostrar el nombre del Pokémon como un enlace -->
                         <td><a href="vistaPokedexBusqueda.php?page=' . $nombre_pokemon . '">' . $nombre_pokemon . '</a></td>
+        
+                        <!-- Botón para ver más detalles del Pokémon -->
                         <td><button class="w3-button w3-blue" onclick="window.location.href=\'vistaPokemonSeleccionado.php?page=' . $nombre_pokemon . '\'">Ver a ' . $nombre_pokemon . '</button></td>
-                      </tr>';
-            } ?>
+
+                        </tr>';
+            }
+            ?>
+
             </tbody>
         </table>
     </div>

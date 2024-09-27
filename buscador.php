@@ -222,5 +222,3 @@ function factorizacionDeConsulta($consulta, $bind_param1, $busqueda)
     $resultado = $resultado->fetch_assoc();
     return $resultado;
 }
-
-
