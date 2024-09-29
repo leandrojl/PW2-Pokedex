@@ -137,19 +137,19 @@ if (!empty($pokemonPorTipo)) {
 
 
         echo '<tr>
-                        <!-- Mostrar la imagen del Pokémon -->
+                        
                         <td><img src="' . $database->buscarImagen($pokemon['imagen']) . '" alt="' . $nombre_pokemon . '" class="w3-image" style="width:100px;"></td>
         
-                        <!-- Mostrar la imagen del tipo de Pokémon -->
+                        
                         <td><img src="./imagenes/' . $tipo_pokemon . '.png" alt="Tipo ' . $tipo_pokemon . '" class="w3-image" style="width:100px;"></td>
         
-                        <!-- Mostrar el número del Pokémon -->
+                        
                         <td>' . $nro_id_unico . '</td>
         
-                        <!-- Mostrar el nombre del Pokémon como un enlace -->
+                       
                         <td><a href="vistaPokedexBusqueda.php?page=' . $nombre_pokemon . '">' . $nombre_pokemon . '</a></td>
         
-                        <!-- Botón para ver más detalles del Pokémon -->
+                        
                         <td><button class="w3-button w3-blue" onclick="window.location.href=\'vistaPokemonSeleccionado.php?page=' . $nombre_pokemon . '\'">Ver a ' . $nombre_pokemon . '</button></td>
 ';
         //Evaluamos si esta logueado, si es asi, le agregamos los botones de modificar o borrar
@@ -212,19 +212,19 @@ if (!empty($pokemonPorTipo)) {
 
 
         echo '<tr>
-                        <!-- Mostrar la imagen del Pokémon -->
+                        
                         <td><img src="' . $database->buscarImagen($pokemon['imagen']) . '" alt="' . $nombre_pokemon . '" class="w3-image" style="width:100px;"></td>
         
-                        <!-- Mostrar la imagen del tipo de Pokémon -->
+                        
                         <td><img src="./imagenes/' . $tipo_pokemon . '.png" alt="Tipo ' . $tipo_pokemon . '" class="w3-image" style="width:100px;"></td>
         
-                        <!-- Mostrar el número del Pokémon -->
+                       
                         <td>' . $nro_id_unico . '</td>
         
-                        <!-- Mostrar el nombre del Pokémon como un enlace -->
+                        
                         <td><a href="vistaPokedexBusqueda.php?page=' . $nombre_pokemon . '">' . $nombre_pokemon . '</a></td>
         
-                        <!-- Botón para ver más detalles del Pokémon -->
+                        
                         <td><button class="w3-button w3-blue" onclick="window.location.href=\'vistaPokemonSeleccionado.php?page=' . $nombre_pokemon . '\'">Ver a ' . $nombre_pokemon . '</button></td>
 '; //Evaluamos si esta logueado, si es asi, le agregamos los botones de modificar o borrar
         if (isset($_SESSION['logueado']) && $_SESSION['logueado'] == 1) {
