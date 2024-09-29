@@ -57,8 +57,12 @@ $tipos = $pokemonManager->obtenerTipos();
 
 
 ?>
+
 </header>
 <body>
+<?php
+include './navbar.php';
+?>
 <main>
     <div class="w3-container contenedor-agregar">
         <h2 class="w3-center">Agregar Nuevo Pokémon</h2>
@@ -150,16 +154,39 @@ $tipos = $pokemonManager->obtenerTipos();
         <!-- Tarjetas para pantallas pequeñas -->
         <div class="w3-row-padding" id="pokemonCards">
             <?php foreach ($resultado as $pokemon): ?>
-                <div class="w3-col s12 m6 l4">
-                    <div class="w3-card-4 w3-margin-bottom pokemon-card">
+                <div class="w3-col s12 m12 l12">
+                    <div class="w3-card-4 w3-margin-bottom pokemon-card w3-center w3-padding">
                         <header class="w3-container w3-light-grey">
                             <h3><?php echo $pokemon['nombre']; ?> (#<?php echo $pokemon['id']; ?>)</h3>
                         </header>
-                        <div class="w3-container">
+
+                        <div class="w3-container w3-padding w3-margin">
                             <img src="<?php echo $db->buscarImagen($pokemon['imagen'])?>" alt="<?php echo htmlspecialchars($pokemon['nombre']); ?>" style="width:100px;">
                             <p><strong>Tipo:</strong> <img src="imagenes/<?php echo $pokemon['tipo']; ?>.png" alt="Tipo <?php echo $pokemon['tipo']; ?>" style="width:30px;"></p>
                             <p><strong>Descripción:</strong> <?php echo $pokemon['descripcion']; ?></p>
+                            <div class="w3-row-padding ">
+                                <div class="w3-col l12 m12 s12 w3-margin">
+                                    <button class="w3-button w3-blue" onclick="window.location.href='vistaPokemonSeleccionado.php?page=<?php echo $pokemon['nombre'] ?>&id=<?php echo $pokemon['id']; ?>'">Ver a <?php echo $pokemon['nombre']; ?></button>
+
+                                </div>
+                                <div class="w3-col l12 m12 s12 w3-margin">
+                                    <form action="modificar_pokemon.php" method="GET" style="display:inline;">
+                                        <input type="hidden" name="id" value="<?php echo $pokemon['id']; ?>">
+                                        <button type="submit" class="w3-button w3-green">Modificar</button>
+                                    </form>
+
+                                </div>
+                                <div class="w3-col l12 m12 w3-margin">
+                                    <form action="ABM.php" method="POST" style="display:inline;">
+                                        <input type="hidden" name="id" value="<?php echo $pokemon['id']; ?>">
+                                        <input type="hidden" name="accion" value="baja">
+                                        <button type="submit" class="w3-button w3-red">Baja</button>
+                                    </form>
+                                </div>
+                            </div>
+
                         </div>
+
 
                     </div>
                 </div>
@@ -171,8 +198,24 @@ $tipos = $pokemonManager->obtenerTipos();
 <script>
     function updateDisplay() {
         const isMobile = window.innerWidth <= 768;
-        document.getElementById('pokemonTable').style.display = isMobile ? 'none' : 'block';
-        document.getElementById('pokemonCards').style.display = isMobile ? 'block' : 'none';
+        const isTablet = window.innerWidth > 768 && window.innerWidth <= 1024;
+        const isMonitor = window.innerWidth > 1024;
+        if(window.innerWidth <= 768){
+            document.getElementById('pokemonTable').style.display = isMobile ? 'none' : 'block';
+            document.getElementById('pokemonCards').style.display = isMobile ? 'block' : 'none';
+        }else if(window.innerWidth > 768 && window.innerWidth <= 1024){
+            document.getElementById('pokemonTable').style.display = isTablet ? 'none' : 'block';
+            document.getElementById('pokemonCards').style.display = isTablet ? 'block' : 'none';
+
+        }else if(window.innerWidth > 1024){
+            document.getElementById('pokemonTable').style.display = isMonitor ? 'block' : 'none';
+            document.getElementById('pokemonCards').style.display = isMonitor ? 'none' : 'block';
+        }
+
+
+
+
+
     }
 
     window.addEventListener('resize', updateDisplay);
@@ -181,15 +224,3 @@ $tipos = $pokemonManager->obtenerTipos();
 </body>
 </html>
 
-<footer class="w3-container w3-light-grey actions">
-    <button class="w3-button w3-blue" onclick="window.location.href='vistaPokemonSeleccionado.php?page=<?php echo $pokemon['nombre'] ?>&id=<?php echo $pokemon['id']; ?>'">Ver a <?php echo $pokemon['nombre']; ?></button>
-    <form action="modificar_pokemon.php" method="GET" style="display:inline;">
-        <input type="hidden" name="id" value="<?php echo $pokemon['id']; ?>">
-        <button type="submit" class="w3-button w3-green">Modificar</button>
-    </form>
-    <form action="ABM.php" method="POST" style="display:inline;">
-        <input type="hidden" name="id" value="<?php echo $pokemon['id']; ?>">
-        <input type="hidden" name="accion" value="baja">
-        <button type="submit" class="w3-button w3-red">Baja</button>
-    </form>
-</footer>

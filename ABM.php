@@ -44,11 +44,6 @@ if (isset($_POST['accion'])) {
         // Si se sube un archivo que no sea png, me da error
         $extensionArchivo = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
 
-        if (strtolower($extensionArchivo) !== 'png') {
-            echo "Formato de imagen no permitido. Solo se permiten archivos PNG";
-            exit();
-        }
-
 
         // Limito el tamaño del archivo a 2mb
         if ($tamanioArchivo > 2097152) {
@@ -86,6 +81,8 @@ if (isset($_POST['accion'])) {
                 exit();
             }else{
                 echo "Error: nro_id_unico existente.";
+                header("Location: perfilAdmin.php");
+
                 exit();
             }
         } else {

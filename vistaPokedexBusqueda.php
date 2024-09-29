@@ -20,6 +20,9 @@ include 'database.php';
     <?php include './header.php'; ?>
 </header>
 <body>
+<?php
+include './navbar.php';
+?>
 
 <?php include './barraBuscadora.php'; ?>
 
@@ -32,7 +35,7 @@ include 'database.php';
     ?>
 
     <!-- Contenedor de la tabla (visible en escritorio) -->
-    <div class="table-container">
+    <div class="table-container" id="pokemonTable">
         <table class="w3-table w3-bordered w3-striped w3-hoverable">
             <thead>
             <tr class="w3-light-grey">
@@ -83,16 +86,16 @@ include 'database.php';
     </div>
 
     <!-- Contenedor de tarjetas (visible en móviles) -->
-    <div class="w3-row-padding">
+    <div class="w3-row-padding "  id="pokemonCards">
         <?php foreach ($resultado as $pokemon) {
             $nombre_pokemon = $pokemon['nombre'];
             $tipo_pokemon = $pokemon['tipo_descripcion'];
             $nro_id_unico = $pokemon['nro_id_unico'];
 
-            echo '<div class="w3-col l3 m6 s12">
-                <div class="w3-card-4 w3-margin">
-                    <img src="' . $database->buscarImagen($pokemon['imagen']) . '" alt="' . $nombre_pokemon . '" style="width:100%">
-                    <div class="w3-container">
+            echo '<div class="w3-col l12 m12 s12">
+                <div class="w3-card-4 w3-margin w3-center" >
+                    <img src="' . $database->buscarImagen($pokemon['imagen']) . '" alt="' . $nombre_pokemon . '" style="width:100px;">
+                    <div class="w3-container w3-padding">
                         <img src="./imagenes/' . $tipo_pokemon . '.png" alt="Tipo ' . $tipo_pokemon . '" style="width: 40px;">
                         <h3>' . $nombre_pokemon . '</h3>
                         <p>Número: ' . $nro_id_unico . '</p>
@@ -103,8 +106,34 @@ include 'database.php';
         } ?>
     </div>
 
-</div>
 
+</div>
+<script>
+    function updateDisplay() {
+        const isMobile = window.innerWidth <= 768;
+        const isTablet = window.innerWidth > 768 && window.innerWidth <= 1024;
+        const isMonitor = window.innerWidth > 1024;
+        if(window.innerWidth <= 768){
+            document.getElementById('pokemonTable').style.display = isMobile ? 'none' : 'block';
+            document.getElementById('pokemonCards').style.display = isMobile ? 'block' : 'none';
+        }else if(window.innerWidth > 768 && window.innerWidth <= 1024){
+            document.getElementById('pokemonTable').style.display = isTablet ? 'none' : 'block';
+            document.getElementById('pokemonCards').style.display = isTablet ? 'block' : 'none';
+
+        }else if(window.innerWidth > 1024){
+            document.getElementById('pokemonTable').style.display = isMonitor ? 'block' : 'none';
+            document.getElementById('pokemonCards').style.display = isMonitor ? 'none' : 'block';
+        }
+
+
+
+
+
+    }
+
+    window.addEventListener('resize', updateDisplay);
+    window.addEventListener('load', updateDisplay);
+</script>
 </body>
 </html>
 

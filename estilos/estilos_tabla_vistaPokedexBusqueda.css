@@ -1,38 +1,8 @@
-.card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 16px;
-    margin: 10px;
-    transition: transform 0.2s;
-}
-.card:hover {
-    transform: scale(1.05);
-}
-.card img {
-    width: 100px;
-}
-.card-container {
-    display: none; /* Ocultar por defecto */
-}
-@media (max-width: 600px) {
-    .table-container {
-        display: none; /* Ocultar la tabla en dispositivos móviles */
+/*********************  RESPONSIVE TABLA **************************/
+@media only screen and (max-width: 768px) {
+    .w3-table-responsive {
+        display: none; /* Oculta la tabla en pantallas pequeñas */
     }
-    .card-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around; /* Mostrar tarjetas en móviles */
-
-    }
-
-    .card{
-        width:100%;
-    }
-
     .pokemon-card {
         display: flex;
         flex-direction: column;

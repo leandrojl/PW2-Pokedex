@@ -46,6 +46,8 @@ $resultado = $database->query($query);
     ?>
 </header>
 <body>
+<?php include './navbar.php'; ?>
+<?php include './barraBuscadora.php'; ?>
 
 
 

@@ -76,10 +76,43 @@ if (!empty($pokemonPorNombre)) {
 
 if (!empty($pokemonPorTipo)) {
 
-    echo '<div class="w3-container">
-    <h2 class="w3-center">Resultado de busqueda</h2>
+    echo '<h2 class="w3-center">Resultado de busqueda</h2>';
 
-    <table class="w3-table w3-bordered w3-striped w3-hoverable">
+    echo '<div class="w3-row-padding" id="pokemonCards">'; // Cierra el contenedor principal
+
+
+
+    foreach ($pokemonPorTipo as $pokemon) {
+        $nombre_pokemon = $pokemon['nombre'];
+        $tipo_pokemon = $pokemon['tipo_descripcion'];
+        $nro_id_unico = $pokemon['nro_id_unico'];
+
+        // Cada tarjeta de Pokémon se genera aquí.
+        echo '<div class="w3-col l12 m12 s12">
+            <div class="w3-card-4 w3-margin w3-center">
+                <img src="' . $database->buscarImagen($pokemon['imagen']) . '" alt="' . $nombre_pokemon . '" style="width:100px;">
+                <div class="w3-container w3-padding">
+                    <img src="./imagenes/' . $tipo_pokemon . '.png" alt="Tipo ' . $tipo_pokemon . '" style="width: 40px;">
+                    <h3>' . $nombre_pokemon . '</h3>
+                    <p>Número: ' . $nro_id_unico . '</p>
+                    <button class="w3-button w3-blue" onclick="window.location.href=\'vistaPokemonSeleccionado.php?page=' . $nombre_pokemon . '\'">Ver a ' . $nombre_pokemon . '</button>
+                </div>
+            </div>
+          </div>';
+    }
+
+
+
+
+    echo '</div>';
+    echo '
+    <div class="w3-container">
+    
+    
+    
+    
+    <div class="table-container" id="pokemonTable">
+    <table class="w3-table w3-bordered w3-striped w3-hoverable" >
         <thead>
         <tr class="w3-light-grey">
             <th>Imagen</th>
@@ -139,7 +172,13 @@ if (!empty($pokemonPorTipo)) {
     echo '      </tbody>
     </table>
     </div>
+    </div>
     ';
+
+
+
+
+
 } else {
     echo '    <h1 class="w3-center">Búsqueda sin resultados</h1>
 ';
@@ -222,3 +261,5 @@ function factorizacionDeConsulta($consulta, $bind_param1, $busqueda)
     $resultado = $resultado->fetch_assoc();
     return $resultado;
 }
+?>
+
