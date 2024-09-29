@@ -23,18 +23,20 @@ $tipos = $pokemonManager->obtenerTipos();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="shortcut icon" href="img/Pokebola.png">
+    <link rel="stylesheet" href="estilos/estilos.css">
+    <link rel="stylesheet" href="estilos/estilos_modificar_pokemon.css">
+    <link rel="shortcut icon" href="imagenes/Pokebola.png">
     <title>Modificar Pokémon</title>
 </head>
 <body>
 <header>
-    <div class="logo"><img src="img/pokedex-removebg-preview.png" alt="Logo"></div>
-    <div class="titulo"><img src="img/pokedex-titulo.png" alt=""></div>
-    <div class="login">
-        <img src="img/ash.jfif" alt="Usuario" class="user-image">
-        <p>Usuario: Administrador</p>
-    </div>
+    <?php
+
+
+    include './header.php';
+
+
+    ?>
 </header>
 <?php
 include './barraBuscadora.php'
@@ -43,7 +45,7 @@ include './barraBuscadora.php'
 <main>
     <div class="w3-container">
         <h2 class="w3-center">Modificar Pokémon</h2>
-        <form action="ABM.php" method="POST" enctype="multipart/form-data">
+        <form action="ABM.php" method="POST" enctype="multipart/form-data" class="form_modificar">
             <input type="hidden" name="id" value="<?php echo htmlspecialchars($pokemon['id']); ?>">
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" value="<?php echo htmlspecialchars($pokemon['nombre']); ?>" required>
@@ -59,8 +61,6 @@ include './barraBuscadora.php'
 
             <label for="descripcion">Descripción:</label>
             <textarea id="descripcion" name="descripcion" required><?php echo htmlspecialchars($pokemon['descripcion']); ?></textarea>
-
-            <label for="imagen">Imagen:</label>
 
 
             <label for="imagen">Imagen (archivo):</label>

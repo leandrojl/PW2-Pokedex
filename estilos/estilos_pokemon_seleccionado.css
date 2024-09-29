@@ -1,0 +1,56 @@
+/* Contenedor principal */
+.w3-row-padding {
+    margin: 0px;
+}
+
+/* Estilo para las columnas */
+.w3-col {
+    padding: 0px;
+}
+
+/* Estilo para la imagen del Pokémon */
+.w3-image {
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+}
+
+.imagen_tipo{
+    background-color: #f1e9e9  !important;;
+    border:none !important;
+    box-shadow: none !important;
+}
+
+.contenedor-descipcion{
+    padding: 80px !important;
+}
+
+
+/* Estilo para el contenedor del texto */
+.w3-container {
+    background-color: #f1e9e9; /* Fondo claro */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+/* Estilo para los párrafos */
+p {
+    line-height: 1.6; /* Espaciado entre líneas */
+    margin: 5px 0; /* Margen para los párrafos */
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+
+    .contenedor-descipcion{
+        padding: 10px !important;
+    }
+
+    .w3-col {
+        margin-bottom: 15px; /* Espacio entre columnas en móviles */
+    }
+
+    .w3-image {
+        max-width: 100%; /* Asegura que las imágenes sean responsivas */
+    }
+}

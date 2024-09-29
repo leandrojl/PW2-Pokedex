@@ -6,7 +6,7 @@ body {
     margin: 0;
     padding: 0;
 }
-
+/**************** HEADER ************************/
 header {
     background-color: #4CAF50;
     padding: 20px;
@@ -19,8 +19,14 @@ header {
 
 /*imagen del pokedex*/
 .logo img{
-   width: 8em;
+    width: 150px; /* Ajusta el tamaño según necesites */
+    transition: transform 0.3s ease; /* Suaviza la animación */
 }
+
+.logo img:hover {
+    transform: scale(1.1); /* Aumenta el tamaño al pasar el mouse */
+}
+
 
 /*Titulo Pokedex*/
 .titulo img{
@@ -69,8 +75,16 @@ header .login input[type="button"]:hover {
 }
 
 
+
+/*************************** MAIN ********************************/
+
 main {
     padding: 20px;
+}
+
+h2{
+    font-weight: bold;
+    margin:25px;
 }
 
 /*Buscador*/
@@ -111,10 +125,11 @@ form.buscador input[type="submit"]:hover {
     background-color: #45a049;
 }
 
+/**** Agregar un nuevo pokemon ****/
 
-
-/* botón de nuevo */
+/* botón de agregar nuevo */
 #nuevoBtn {
+    margin: 20px;
     padding: 10px 20px;
     background-color: #28a745;
     color: white;
@@ -122,82 +137,15 @@ form.buscador input[type="submit"]:hover {
     cursor: pointer;
 }
 
-/* popup */
-.popup {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%; /* Asegura que ocupe toda la altura de la ventana */
-    background-color: rgba(0, 0, 0, 0.6);
-    z-index: 9999;
-    overflow-y: auto; /* Permite el scroll vertical si el contenido es demasiado grande */
-    padding: 20px; /* Añade espacio para que el contenido no toque el borde */
-}
-
-/* contenido del popup */
-.popup-content {
+/* contenido de agregar*/
+.contenedor-agregar {
     background-color: white;
-    margin: 15% auto;
     padding: 20px;
-    border: 1px solid #888;
-    width: 30%;
+    border: 2px solid rgba(0, 0, 0, 0.2);
     border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Efecto de sombra */
 }
 
-/* botón de cerrar popup*/
-.close {
-    color: #4CAF50;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    padding: 10px 15px;
-    background-color: white;
-    border: none;
-}
-
-
-.close:hover,
-.close:focus {
-    text-decoration: none;
-    cursor: pointer;
-    background-color: #d83e49;
-    color: white;
-}
-
-
-
-/*formulario de carga*/
-
-#nuevoForm {
-    display: flex;
-    flex-direction: column;
-    row-gap: 10px;
-}
-
-#nuevoForm label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #333;
-}
-
-
-#nuevoForm input[type="number"]{
-    padding: 5px;
-    border: 2px solid #4CAF50;
-    border-radius: 5px;
-
-}
-
-#nuevoForm input[type="text"]{
-    padding: 5px;
-    border: 2px solid #4CAF50;
-    border-radius: 5px;
-}
 
 /*imagen para cargar*/
 #previewImg{
@@ -207,40 +155,134 @@ form.buscador input[type="submit"]:hover {
 }
 
 
-/*Tipos*/
 select{
+    margin-top:5px;
+    margin-bottom: 10px;
     padding: 5px;
-    border: 2px solid #4CAF50;
     border-radius: 5px;
 
 }
 
-/*descripcion del pokemon*/
 
 textarea{
+    margin-top:5px;
     padding: 5px;
-    border: 2px solid #4CAF50;
     border-radius: 5px;
-    height: 150px;
+    height: 100px;
 }
 
-/*boton para cargar el nuevo pokemon*/
-.cargar{
-    color: #4CAF50;
-    text-align: center;
-    font-size: 15px;
+input{
+    margin-top:5px;
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 5px;
+
+}
+
+label{
     font-weight: bold;
-    border-radius: 5px;
-    border: #4CAF50 1px solid;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    padding: 10px 15px;
-    background-color: white;
+}
+
+
+
+
+/**********RESPONSIVE HEADER************************/
+/* Media Query para pantallas menores a 768px (tablets y teléfonos) */
+@media only screen and (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .logo img {
+        width: 6em;
+    }
+
+    .titulo img {
+        width: 12em;
+    }
+
+    header .login {
+
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    header .login input[type="text"],
+    header .login input[type="password"] {
+        width: 70%;
+        margin-bottom: 10px;
+    }
+
+    header .login input[type="submit"],
+    header .login input[type="button"] {
+        width: 70px;
+    }
+
+    h2{
+        font-size: 16px;
+    }
+
 
 }
 
-.cargar:hover{
-    text-decoration: none;
-    cursor: pointer;
-    background-color: #4b58da;
-    color: white;}
+/* Media Query para pantallas menores a 480px (teléfonos pequeños) */
+@media only screen and (max-width: 480px) {
+    header {
+        padding: 5px;
+    }
+
+    .logo img {
+        width: 4em;
+    }
+
+    .titulo img {
+        width: 10em;
+    }
+
+    header .login input[type="text"],
+    header .login input[type="password"],
+    header .login input[type="submit"],
+    header .login input[type="button"] {
+        padding: 8px;
+    }
+}
+
+/**********RESPONSIVE BUSCADOR************************/
+/* Media Query para pantallas menores a 768px (tablets y teléfonos) */
+@media only screen and (max-width: 768px) {
+    form.buscador {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    form.buscador input[type="text"] {
+        width: 80%;
+        border-radius: 25px;
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+
+    form.buscador input[type="submit"] {
+        width: 50%;
+        border-radius: 25px;
+        padding: 12px 0;
+        font-size: 16px;
+    }
+}
+
+/* Media Query para pantallas menores a 480px (teléfonos pequeños) */
+@media only screen and (max-width: 480px) {
+    form.buscador input[type="text"] {
+        width: 80%;
+        font-size: 12px;
+    }
+
+    form.buscador input[type="submit"] {
+        width: 50%;
+        font-size: 14px;
+        padding: 10px 0;
+    }
+}
+

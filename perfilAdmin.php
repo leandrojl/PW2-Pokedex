@@ -43,8 +43,9 @@ $tipos = $pokemonManager->obtenerTipos();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
- <!-- <link rel="stylesheet" href="styles/style.css">-->
-    <link rel="shortcut icon" href="img/Pokebola.png">
+    <link rel="stylesheet" href="estilos/estilos.css">
+    <link rel="stylesheet" href="estilos/estilos_tabla_perfilAdmin.css">
+    <link rel="shortcut icon" href="imagenes/Pokebola.png">
     <title>Pokedex</title>
 </head>
 
@@ -56,21 +57,22 @@ $tipos = $pokemonManager->obtenerTipos();
 
 
 ?>
+
 </header>
 <body>
+<?php
+include './navbar.php';
+?>
 <main>
-    <div class="w3-container">
+    <div class="w3-container contenedor-agregar">
         <h2 class="w3-center">Agregar Nuevo Pokémon</h2>
-        <form action="ABM.php" method="POST"  enctype="multipart/form-data" class="w3-form">
+        <form action="ABM.php" method="POST"  enctype="multipart/form-data" class="w3-form" id="nuevoForm">
             <div class="w3-row-padding">
                 <div class="w3-half">
                     <label for="nombre">Nombre:</label>
                     <input type="text" id="nombre" name="nombre" class="w3-input w3-border" placeholder="Nombre del pokemon">
                 </div>
-                <div class="w3-half">
-                    <label for="descripcion">Descripcion:</label>
-                    <textarea name="descripcion" id="descripcion" class="w3-input w3-border" placeholder="Breve descripcion"></textarea>
-                </div>
+
                 <div class="w3-half">
                     <label for="nro_id_unico">Id unico:</label>
                     <input type="number" name="nro_id_unico" id="nro_id_unico" class="w3-input w3-border" placeholder="ID del pokemon">
@@ -84,6 +86,10 @@ $tipos = $pokemonManager->obtenerTipos();
                         <?php endforeach; ?>
                     </select>
                 </div>
+                <div class="w3-half">
+                    <label for="descripcion">Descripcion:</label>
+                    <textarea name="descripcion" id="descripcion" class="w3-input w3-border" placeholder="Breve descripcion"></textarea>
+                </div>
             </div>
             <div class="w3-row-padding">
                 <div class="w3-half">
@@ -92,7 +98,7 @@ $tipos = $pokemonManager->obtenerTipos();
                 </div>
             </div>
             <input type="hidden" name="accion" value="agregar">
-            <button type="submit" class="w3-button w3-teal">Agregar Pokémon</button>
+            <button type="submit" id="nuevoBtn">Agregar Pokémon</button>
         </form>
     </div>
 
@@ -102,53 +108,119 @@ $tipos = $pokemonManager->obtenerTipos();
 
     <div class="w3-container">
         <h2 class="w3-center">Lista de Pokémon</h2>
-        <table class="w3-table w3-bordered w3-striped w3-hoverable">
-            <thead>
-            <tr class="w3-light-grey">
-                <th>Imagen</th>
-                <th>Tipo</th>
-                <th>Número</th>
-                <th>Nombre</th>
-                <th>Descripcion</th>
-                <th>Ver Pokémon</th>
-                <th>Acciones</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($resultado as $pokemon): ?>
-                <tr>
-                    <td>
-                         <img src="<?php echo $db->buscarImagen($pokemon['imagen'])?>"
-                               alt="<?php echo htmlspecialchars($pokemon['nombre']); ?>"
-                               class="w3-image"
-                               style="width:100px;">
-                    </td>
 
-
-                    <td><img src="imagenes/<?php echo $pokemon['tipo']; ?>.png" alt="Tipo <?php echo $pokemon['tipo']; ?>" class="w3-image" style="width:100px;"></td>
-                    <td>#<?php echo $pokemon['id']; ?></td>
-                    <td><?php echo $pokemon['nombre']; ?></td>
-                    <td><?php echo $pokemon['descripcion']; ?></td>
-                    <td><button class="w3-button w3-blue" onclick="window.location.href='vistaPokemonSeleccionado.php?page=<?php echo $pokemon['nombre'] ?>&id=<?php echo $pokemon['id']; ?>'">Ver a <?php echo $pokemon['nombre']; ?></button></td>
-                    <td>
-                        <form action="modificar_pokemon.php" method="GET">
-                            <input type="hidden" name="id" value="<?php echo $pokemon['id']; ?>">
-                            <button type="submit" class="w3-button w3-green">Modificar</button>
-                        </form>
-                        <form action="ABM.php" method="POST">
-                            <input type="hidden" name="id" value="<?php echo $pokemon['id']; ?>">
-                            <input type="hidden" name="accion" value="baja">
-                            <button type="submit" class="w3-button w3-red">Baja</button>
-                        </form>
-                    </td>
-
+        <!-- Tabla para pantallas grandes -->
+        <div class="w3-table-responsive" id="pokemonTable">
+            <table class="w3-table w3-bordered w3-striped w3-hoverable">
+                <thead>
+                <tr class="w3-light-grey">
+                    <th>Imagen</th>
+                    <th>Tipo</th>
+                    <th>Número</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Ver Pokémon</th>
+                    <th>Acciones</th>
                 </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($resultado as $pokemon): ?>
+                    <tr>
+                        <td><img src="<?php echo $db->buscarImagen($pokemon['imagen'])?>" alt="<?php echo htmlspecialchars($pokemon['nombre']); ?>" style="width:100px;"></td>
+                        <td><img src="imagenes/<?php echo $pokemon['tipo']; ?>.png" alt="Tipo <?php echo $pokemon['tipo']; ?>" style="width:100px;"></td>
+                        <td>#<?php echo $pokemon['id']; ?></td>
+                        <td><?php echo $pokemon['nombre']; ?></td>
+                        <td><?php echo $pokemon['descripcion']; ?></td>
+                        <td>
+                            <button class="w3-button w3-blue" onclick="window.location.href='vistaPokemonSeleccionado.php?page=<?php echo $pokemon['nombre'] ?>&id=<?php echo $pokemon['id']; ?>'">Ver a <?php echo $pokemon['nombre']; ?></button>
+                        </td>
+                        <td>
+                            <form action="modificar_pokemon.php" method="GET" style="display:inline;">
+                                <input type="hidden" name="id" value="<?php echo $pokemon['id']; ?>">
+                                <button type="submit" class="w3-button w3-green">Modificar</button>
+                            </form>
+                            <form action="ABM.php" method="POST" style="display:inline;">
+                                <input type="hidden" name="id" value="<?php echo $pokemon['id']; ?>">
+                                <input type="hidden" name="accion" value="baja">
+                                <button type="submit" class="w3-button w3-red">Baja</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Tarjetas para pantallas pequeñas -->
+        <div class="w3-row-padding" id="pokemonCards">
+            <?php foreach ($resultado as $pokemon): ?>
+                <div class="w3-col s12 m12 l12">
+                    <div class="w3-card-4 w3-margin-bottom pokemon-card w3-center w3-padding">
+                        <header class="w3-container w3-light-grey">
+                            <h3><?php echo $pokemon['nombre']; ?> (#<?php echo $pokemon['id']; ?>)</h3>
+                        </header>
+
+                        <div class="w3-container w3-padding w3-margin">
+                            <img src="<?php echo $db->buscarImagen($pokemon['imagen'])?>" alt="<?php echo htmlspecialchars($pokemon['nombre']); ?>" style="width:100px;">
+                            <p><strong>Tipo:</strong> <img src="imagenes/<?php echo $pokemon['tipo']; ?>.png" alt="Tipo <?php echo $pokemon['tipo']; ?>" style="width:30px;"></p>
+                            <p><strong>Descripción:</strong> <?php echo $pokemon['descripcion']; ?></p>
+                            <div class="w3-row-padding ">
+                                <div class="w3-col l12 m12 s12 w3-margin">
+                                    <button class="w3-button w3-blue" onclick="window.location.href='vistaPokemonSeleccionado.php?page=<?php echo $pokemon['nombre'] ?>&id=<?php echo $pokemon['id']; ?>'">Ver a <?php echo $pokemon['nombre']; ?></button>
+
+                                </div>
+                                <div class="w3-col l12 m12 s12 w3-margin">
+                                    <form action="modificar_pokemon.php" method="GET" style="display:inline;">
+                                        <input type="hidden" name="id" value="<?php echo $pokemon['id']; ?>">
+                                        <button type="submit" class="w3-button w3-green">Modificar</button>
+                                    </form>
+
+                                </div>
+                                <div class="w3-col l12 m12 w3-margin">
+                                    <form action="ABM.php" method="POST" style="display:inline;">
+                                        <input type="hidden" name="id" value="<?php echo $pokemon['id']; ?>">
+                                        <input type="hidden" name="accion" value="baja">
+                                        <button type="submit" class="w3-button w3-red">Baja</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
             <?php endforeach; ?>
-            </tbody>
-        </table>
-
-
+        </div>
     </div>
+
 </main>
+<script>
+    function updateDisplay() {
+        const isMobile = window.innerWidth <= 768;
+        const isTablet = window.innerWidth > 768 && window.innerWidth <= 1024;
+        const isMonitor = window.innerWidth > 1024;
+        if(window.innerWidth <= 768){
+            document.getElementById('pokemonTable').style.display = isMobile ? 'none' : 'block';
+            document.getElementById('pokemonCards').style.display = isMobile ? 'block' : 'none';
+        }else if(window.innerWidth > 768 && window.innerWidth <= 1024){
+            document.getElementById('pokemonTable').style.display = isTablet ? 'none' : 'block';
+            document.getElementById('pokemonCards').style.display = isTablet ? 'block' : 'none';
+
+        }else if(window.innerWidth > 1024){
+            document.getElementById('pokemonTable').style.display = isMonitor ? 'block' : 'none';
+            document.getElementById('pokemonCards').style.display = isMonitor ? 'none' : 'block';
+        }
+
+
+
+
+
+    }
+
+    window.addEventListener('resize', updateDisplay);
+    window.addEventListener('load', updateDisplay);
+</script>
 </body>
 </html>
+
