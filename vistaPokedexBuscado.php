@@ -9,7 +9,6 @@ session_start();
     <title>Pokedex</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="estilos/estilos.css">
-    <link rel="stylesheet" href="estilos/estilos_tabla_perfilAdmin.css">
     <link rel="shortcut icon" href="imagenes/Pokebola.png">
 </head>
 <header>
@@ -25,7 +24,5 @@ include './barraBuscadora.php';
     <?php
     include 'buscador.php';
     ?>
-
-
 
 </html>
